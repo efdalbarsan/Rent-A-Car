@@ -115,7 +115,7 @@
                         </div>
                         <div class="form-group">
                             <h:commandButton rendered="#{aracController.arac.plaka == null}" styleClass="btn btn-primary" value="Create" action="#{aracController.create}">
-                                <f:ajax execute="@this" render="arac-form arac-table"/> 
+                                <f:ajax execute="arac-form" render="arac-form arac-table"/> 
                             </h:commandButton>
                             <div class="btn-group">
                                 <h:commandButton rendered="#{aracController.arac.plaka != null}" styleClass="btn btn-dark" value="Update" action="#{aracController.modify}">
