@@ -38,6 +38,7 @@ public class AracDAO {
 
     public void insert(Arac arac) {
         String q = "insert into arac(plaka,marka,model,motor,yil,kilometre,yakit,vites,firmaid,fiyat) values (?,?,?,?,?,?,?,?,?,?)";
+        System.out.println(arac.toString());
         try {
             PreparedStatement st = c.prepareStatement(q);
             st.setString(1, arac.getPlaka());

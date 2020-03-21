@@ -115,14 +115,14 @@
                         </div>
                         <div class="form-group">
                             <h:commandButton rendered="#{aracController.arac.plaka == null}" styleClass="btn btn-primary" value="Create" action="#{aracController.create}">
-                                <f:ajax execute="@this" rendered="arac-form arac-table"/> 
+                                <f:ajax execute="@this" render="arac-form arac-table"/> 
                             </h:commandButton>
                             <div class="btn-group">
                                 <h:commandButton rendered="#{aracController.arac.plaka != null}" styleClass="btn btn-dark" value="Update" action="#{aracController.modify}">
-                                    <f:ajax execute="arac-form" rendered="arac-form arac-table"/>
+                                    <f:ajax execute="arac-form" render="arac-form arac-table"/>
                                 </h:commandButton>
                                 <h:commandButton rendered="#{aracController.arac.plaka != null}" styleClass="btn btn-danger" value="Clear Form" action="#{aracController.clearForm}">
-                                    <f:ajax execute="@this" rendered="arac-form"/> 
+                                    <f:ajax execute="@this" render="arac-form"/> 
                                 </h:commandButton>
                             </div>
                         </div>
@@ -133,4 +133,3 @@
         </div>
     </h:body>
 </html>
-

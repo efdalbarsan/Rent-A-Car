@@ -39,7 +39,7 @@ public class AracController implements Serializable {
 
     public String delete() {
         this.getAdao().delete(this.arac);
-        this.arac = new Arac();
+        clearForm();
         return "index";
     }
 
@@ -76,7 +76,7 @@ public class AracController implements Serializable {
         if (this.arac == null) {
             this.arac = new Arac();
         }
-        return arac;
+        return this.arac;
     }
 
     public void setArac(Arac arac) {
