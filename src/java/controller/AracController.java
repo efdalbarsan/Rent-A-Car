@@ -32,15 +32,13 @@ public class AracController implements Serializable {
         return "index";
     }
    
-    public String deleteConfirm(Arac arac) {
+    public void deleteConfirm(Arac arac) {
         this.arac = arac;
-        return "confirm_delete";
     }
 
-    public String delete() {
+    public void delete() {
         this.getAdao().delete(this.arac);
         clearForm();
-        return "index";
     }
 
     public void modify() {
