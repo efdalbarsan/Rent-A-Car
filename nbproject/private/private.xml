@@ -2,6 +2,15 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/Barsan/Desktop/Java/RentACarNesne/web/arac.xhtml</file>
+            <file>file:/C:/Users/Barsan/Desktop/Java/RentACarNesne/src/java/entity/Musteri.java</file>
+            <file>file:/C:/Users/Barsan/Desktop/Java/RentACarNesne/web/Musteri.xhtml</file>
+            <file>file:/C:/Users/Barsan/Desktop/Java/RentACarNesne/src/java/dao/MusteriDAO.java</file>
+            <file>file:/C:/Users/Barsan/Desktop/Java/RentACarNesne/web/index.xhtml</file>
+            <file>file:/C:/Users/Barsan/Desktop/Java/RentACarNesne/src/java/entity/Arac.java</file>
+            <file>file:/C:/Users/Barsan/Desktop/Java/RentACarNesne/src/java/dao/AracDAO.java</file>
+            <file>file:/C:/Users/Barsan/Desktop/Java/RentACarNesne/src/java/controller/MusteriController.java</file>
+        </group>
     </open-files>
 </project-private>
