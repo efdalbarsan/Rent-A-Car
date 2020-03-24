@@ -62,7 +62,7 @@
                             </h:column>
                             <h:column>
                                 <f:facet name="header">DELETE</f:facet>
-                                <h:commandButton onclick="$('.modal').modal('.show')" styleClass="btn btn-sm btn-danger" action="#{aracController.deleteConfirm(ar)}" value ="Delete">
+                                <h:commandButton onclick="$('#myModal').modal('show')" styleClass="btn btn-sm btn-danger" action="#{aracController.deleteConfirm(ar)}" value ="Delete">
                                     <f:ajax execute="@this" render="delete-modal"/>
                                 </h:commandButton>
                             </h:column>
@@ -130,8 +130,7 @@
                 </div>
             </div>
 
-            Copy
-            <div class="modal" tabindex="-1" role="dialog">
+            <div class="modal" id="myModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <h:panelGroup layout="block" class="modal-content" id="delete-modal">
                         <div class="modal-header">
@@ -143,11 +142,11 @@
                         <div class="modal-body">
                             <p>
                                 Bu aracı silmek istediğinizden eminmisiniz ?<br />
-                                
-                                    <b>Araç Plakası = </b>#{aracController.arac.plaka} <br />
-                                    <b>Araç Markası = </b>#{aracController.arac.marka} <br />
-                                    <b>Araç Modeli = </b>#{aracController.arac.model} <br />               
-                                
+
+                                <b>Araç Plakası = </b>#{aracController.arac.plaka} <br />
+                                <b>Araç Markası = </b>#{aracController.arac.marka} <br />
+                                <b>Araç Modeli = </b>#{aracController.arac.model} <br />               
+
                             </p>
                         </div>
                         <div class="modal-footer">
@@ -155,12 +154,16 @@
                                 <h:commandButton onclick="$('.modal').modal('.hide')" action="#{aracController.delete}" value="Confirm" styleClass="btn btn-danger">
                                     <f:ajax execute="@this" render="arac-table arac-form"/>
                                 </h:commandButton>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <h:commandButton styleClass="btn btn-secondary" action="#{aracController.clearForm()}" value="Kapat" />
                             </h:form>
                         </div>
                     </h:panelGroup>
                 </div>
             </div>
         </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+
+        </script> <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script> 
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     </h:body>
 </html>
