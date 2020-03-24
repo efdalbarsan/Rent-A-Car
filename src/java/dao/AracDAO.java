@@ -24,7 +24,6 @@ public class AracDAO {
             ResultSet rs = st.executeQuery("select * from arac"); //executeQuery veritabanindan veri cekme islemini yapar. 
 
             while (rs.next()) {
-                // System.out.println(rs.getString("marka"));
                 Arac tmp;
                 tmp = new Arac(rs.getInt("aracid"), rs.getString("plaka"), rs.getString("marka"), rs.getString("model"), rs.getDouble("motor"), rs.getInt("yil"), rs.getInt("kilometre"), rs.getString("yakit"), rs.getString("vites"), rs.getInt("fiyat"), rs.getInt("firmaid"));
                 clist.add(tmp);//Her yeni araci listeme ekliyorum
