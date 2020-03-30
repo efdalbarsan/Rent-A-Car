@@ -15,6 +15,8 @@ public class AracDAO {
 
     private DBConnection connection;
     private Connection c;
+    
+    private FirmaDAO firmaDAO;
 
     public List<Arac> getArac() {
         List<Arac> clist = new ArrayList();
@@ -27,6 +29,8 @@ public class AracDAO {
                 Arac tmp;
                 tmp = new Arac(rs.getInt("aracid"), rs.getString("plaka"), rs.getString("marka"), rs.getString("model"), rs.getDouble("motor"), rs.getInt("yil"), rs.getInt("kilometre"), rs.getString("yakit"), rs.getString("vites"), rs.getInt("fiyat"), rs.getInt("firmaid"));
                 clist.add(tmp);//Her yeni araci listeme ekliyorum
+                
+                tmp.setFirma(this.getFirmaDAO().find(rs.getInt("firmaid")));
             }
 
         } catch (SQLException ex) {
@@ -91,6 +95,13 @@ public class AracDAO {
             System.out.println(ex.getMessage());
         }
     }
+
+    public FirmaDAO getFirmaDAO() {
+        if( this.firmaDAO == null)
+            this.firmaDAO = new FirmaDAO();
+        return firmaDAO;
+    }
+    
 
     public DBConnection getConnection() {
         if (this.connection == null) {

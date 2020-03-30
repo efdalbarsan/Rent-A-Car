@@ -13,6 +13,7 @@ public class Arac {
     private String vites;
     private int fiyat;
     private int firmaid;
+    private Firma firma;
 
     public Arac() {
     }
@@ -30,6 +31,14 @@ public class Arac {
         this.fiyat =fiyat;
         this.firmaid = firmaid;
     }
+    public void setFirma(Firma firma){
+        this.firma = firma;
+    }
+
+    public Firma getFirma() {
+        return firma;
+    }
+    
 
     public int getAracid() {
         return aracid;
@@ -123,5 +132,7 @@ public class Arac {
     public String toString() {
         return "Arac{" + "aracid= " + aracid + ", plaka= " + plaka + ", marka= " + marka + ", model= " + model + ", motor= " + motor + ", yil= " + yil + ", kilometre= " + kilometre + ", yakit= " + yakit + ", vites= " + vites + ", fiyat= " + fiyat + ", firmaid= " + firmaid + '}';
     }
+
+
 
 }

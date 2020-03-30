@@ -58,6 +58,11 @@ public class Musteri {
     public void setAdres(String adres) {
         this.adres = adres;
     }
+
+    @Override
+    public String toString() {
+        return "Musteri{" + "musteriid=" + musteriid + ", adi=" + adi + ", telefon=" + telefon + ", email=" + email + ", adres=" + adres + '}';
+    }
     
     
 }

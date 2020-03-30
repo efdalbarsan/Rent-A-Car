@@ -1,6 +1,7 @@
 package controller;
 
 import dao.MusteriDAO;
+import entity.Arac;
 import entity.Musteri;
 import java.io.Serializable;
 import java.util.List;
@@ -13,6 +14,37 @@ public class MusteriController implements Serializable{
     private Musteri musteri;
     private List<Musteri> musteriList;
     private MusteriDAO musteriDAO;
+    
+   public void updateForm(Musteri musteri) {
+        this.musteri = musteri;
+    }
+
+    public void clearForm() {
+        this.musteri = new Musteri();        
+    }
+    public String index(){
+        clearForm();
+        return "index";
+    }
+   
+    public void deleteConfirm(Musteri musteri) {
+        this.musteri = musteri;
+    }
+
+    public void delete() {
+        this.getMusteriDAO().delete(this.musteri);
+        clearForm();
+    }
+
+    public void modify() {
+        this.getMusteriDAO().update(this.musteri);
+    }
+
+    public void create() {
+        this.getMusteriDAO().insert(this.musteri);
+        clearForm();
+    }
+
 
     public Musteri getMusteri() {
         if( this.musteri == null)
