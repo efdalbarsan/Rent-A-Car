@@ -4,7 +4,7 @@ public class Firma {
     private int firmaid;
     private String adi;
     private String telefon;
-    private String eamil;
+    private String email;
     private String adres;
     
     private Firma firma;
@@ -12,11 +12,11 @@ public class Firma {
     public Firma() {
     }
 
-    public Firma(int firmaid, String adi, String telefon, String eamil, String adres, Firma firma) {
+    public Firma(int firmaid, String adi, String telefon, String email, String adres, Firma firma) {
         this.firmaid = firmaid;
         this.adi = adi;
         this.telefon = telefon;
-        this.eamil = eamil;
+        this.email = email;
         this.adres = adres;
         this.firma = firma;
     }
@@ -47,12 +47,12 @@ public class Firma {
         this.telefon = telefon;
     }
 
-    public String getEamil() {
-        return eamil;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEamil(String eamil) {
-        this.eamil = eamil;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getAdres() {
@@ -61,6 +61,11 @@ public class Firma {
 
     public void setAdres(String adres) {
         this.adres = adres;
+    }
+
+    @Override
+    public String toString() {
+        return "Firma{" + "firmaid=" + firmaid + ", adi=" + adi + ", telefon=" + telefon + ", email=" + email + ", adres=" + adres + ", firma=" + firma + '}';
     }
     
     
