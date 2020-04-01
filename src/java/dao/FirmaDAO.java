@@ -1,14 +1,13 @@
 package dao;
 
-
 import entity.Firma;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
-
 
 import util.DBConnection;
 
@@ -16,6 +15,25 @@ public class FirmaDAO {
 
     private DBConnection connection;
     private Connection c;
+    
+    public List<Firma> getFirmas() {
+        List<Firma> firmaList = new ArrayList<>();
+
+        try {
+            Statement st = this.getC().createStatement();                    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery("select * from firma"); //executeQuery veritabanindan veri cekme islemini yapar. 
+
+            while (rs.next()) {
+                Firma tmp;
+                tmp = new Firma(rs.getInt("firmaid"), rs.getString("adi"), rs.getString("telefon"), rs.getString("email"), rs.getString("adres"));
+                firmaList.add(tmp);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+       }
+        return firmaList;
+    }
 
     public Firma find(int firmaid) {
         Firma f = null;
@@ -41,7 +59,7 @@ public class FirmaDAO {
     public void insert(Firma firma) {
         String q = "insert into firma(adi,telefon,email,adres) values (?,?,?,?)";
         try {
-            PreparedStatement st = c.prepareStatement(q);
+            PreparedStatement st = this.getC().prepareStatement(q);
             st.setString(1, firma.getAdi());
             st.setString(2, firma.getTelefon());
             st.setString(3, firma.getEmail());
@@ -57,7 +75,7 @@ public class FirmaDAO {
     public void delete(Firma firma) {
         String q = "delete from firma where firmaid = ?";
         try {
-            PreparedStatement st = c.prepareStatement(q);
+            PreparedStatement st = this.getC().prepareStatement(q);
             st.setInt(1, firma.getFirmaid());
             st.executeUpdate();
 
@@ -69,7 +87,7 @@ public class FirmaDAO {
     public void update(Firma firma) {
         String q = "update firma set adi=?,telefon=?,email=?,adres=? where firmaid = ?";
         try {
-            PreparedStatement st = c.prepareStatement(q);
+            PreparedStatement st = this.getC().prepareStatement(q);
             st.setString(1, firma.getAdi());
             st.setString(2, firma.getTelefon());
             st.setString(3, firma.getEmail());
@@ -95,12 +113,5 @@ public class FirmaDAO {
         }
         return c;
     }
-
-    public List<Firma> getFirma() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-
-
 
 }

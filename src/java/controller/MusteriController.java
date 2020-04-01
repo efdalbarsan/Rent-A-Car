@@ -1,7 +1,6 @@
 package controller;
 
 import dao.MusteriDAO;
-import entity.Arac;
 import entity.Musteri;
 import java.io.Serializable;
 import java.util.List;

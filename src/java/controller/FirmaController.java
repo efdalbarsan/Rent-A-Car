@@ -1,4 +1,3 @@
-
 package controller;
 
 import dao.FirmaDAO;
@@ -10,8 +9,8 @@ import javax.inject.Named;
 
 @Named
 @SessionScoped
-public class FirmaController implements Serializable{
-    
+public class FirmaController implements Serializable {
+
     private List<Firma> clist;
     private FirmaDAO firmaDAO;
 
@@ -25,13 +24,14 @@ public class FirmaController implements Serializable{
     }
 
     public void clearForm() {
-        this.firma = new Firma();        
+        this.firma = new Firma();
     }
-    public String index(){
+
+    public String index() {
         clearForm();
         return "index";
     }
-   
+
     public void deleteConfirm(Firma firma) {
         this.firma = firma;
     }
@@ -51,7 +51,7 @@ public class FirmaController implements Serializable{
     }
 
     public List<Firma> getClist() {
-        this.clist = this.getFirmaDAO().getFirma();
+        this.clist = this.getFirmaDAO().getFirmas();
         return this.clist;
     }
 

@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Rent A Car</title>
+        <h:outputStylesheet library ="css" name="bootstrap.css" />
+    </h:head>
+    <h:body>
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <h:form>
+                        <ul class="navbar-nav">
+
+                            <li class="nav-item active">
+                                <h:commandLink styleClass="nav-link" action="Musteri" value="Musteri"/>
+                            </li>
+                            <li class="nav-item">
+                                <h:commandLink styleClass="nav-link" action="arac" value="Arac"/>
+                            </li> 
+                            <li class="nav-item">
+                                <h:commandLink styleClass="nav-link" action="Firma" value="Firma"/>
+                            </li>
+                            <li class="nav-item">
+                                <h:commandLink styleClass="nav-link" action="HasarKaydi" value="HasarKaydi"/>
+                            </li> 
+                        </ul>
+                    </h:form>
+                </div>
+            </nav>
+        </div>
+        <div class ="container">
+            <div class="row" >
+                <div class="col-md-11">
+                    <h:form id="hasarKaydi-table" >
+                        <h:dataTable value ="#{hasarKaydiController.hasarKaydiList}" var="hk" styleClass="table table-borderless table-striped">
+                            <h:column>
+                                <f:facet name="header">HASAR KAYDI ID</f:facet>
+                                <h:commandLink action="#{hasarKaydiController.updateForm(hk)}" value ="#{hk.hasarid}">
+                                    <f:ajax execute="@this" render="hasarKaydi-form"/>
+                                </h:commandLink>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">ARAC ID</f:facet>
+                                    #{hk.aracid}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">BOYA</f:facet>
+                                    #{hk.boya}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">ÇİZİK</f:facet>
+                                    #{hk.cizik}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">DEĞİŞİM</f:facet>
+                                    #{hk.degisim}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">ACIKLAMA</f:facet>
+                                    #{hk.aciklama}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">DELETE</f:facet>
+                                <h:commandButton onclick="$('#myModal').modal('show')" styleClass="btn btn-sm btn-danger" action="#{hasarKaydiController.deleteConfirm(hk)}" value ="Delete">
+                                    <f:ajax execute="@this" render="delete-modal"/>
+                                </h:commandButton>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
+                </div>
+                <div class="col-md-1">
+                    <h:form id="hasarKaydi-form">
+                        <div class="form inlene">
+                            <h:inputHidden value="#{hasarKaydiController.hasarKaydi.hasarid}"/>
+                            <label for="inputaracid">ARAC ID</label>
+                            <h:inputText styleClass="form-control" value="#{hasarKaydiController.hasarKaydi.aracid}"/>
+                        </div>
+                        <div class="form inlene">
+                            <label for="inputboya">BOYA</label>
+                            <h:inputText styleClass="form-control" value="#{hasarKaydiController.hasarKaydi.boya}"/>
+                        </div>
+                        <div class="form inlene">
+                            <label for="inputcizik">CIZIK</label>
+                            <h:inputText styleClass="form-control" value="#{hasarKaydiController.hasarKaydi.cizik}"/>
+                        </div>
+                        <div class="form inlene">
+                            <label for="inputdegisim">DEGISIM</label>
+                            <h:inputText styleClass="form-control" value="#{hasarKaydiController.hasarKaydi.degisim}"/>
+                        </div>
+                        <div class="form inlene">
+                            <label for="inputaciklama">ACIKLAMA</label>
+                            <h:inputText styleClass="form-control" value="#{hasarKaydiController.hasarKaydi.aciklama}"/>
+                        </div>
+                        <div class="form-group">
+                            <div class="btn-group">
+                                <h:commandButton rendered="#{hasarKaydiController.hasarKaydi.boya == null}" styleClass="btn btn-primary" value="Create" action="#{hasarKaydiController.create}">
+                                    <f:ajax execute="hasarKaydi-form" render="hasarKaydi-form hasarKaydi-table"/> 
+                                </h:commandButton>
+                                <h:commandButton rendered="#{hasarKaydiController.hasarKaydi.boya != null}" styleClass="btn btn-dark" value="Update" action="#{hasarKaydiController.modify}">
+                                    <f:ajax execute="hasarKaydi-form" render="hasarKaydi-form hasarKaydi-table"/>
+                                </h:commandButton>
+                                <h:commandButton rendered="#{hasarKaydiController.hasarKaydi.boya != null}" styleClass="btn btn-danger" value="Clear Form" action="#{hasarKaydiController.clearForm}">
+                                    <f:ajax execute="@this" render="hasarKaydi-form"/> 
+                                </h:commandButton>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+            <div class="modal" id="myModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <h:panelGroup layout="block" class="modal-content" id="delete-modal">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Delete Confirmation</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                Bu kaydı silmek istediğinizden eminmisiniz ?<br />
+
+                                <b>Araç Boyası = </b>#{hasarKaydiController.hasarKaydi.boya} <br />
+                                <b>Araç Çiziği = </b>#{hasarKaydiController.hasarKaydi.cizik} <br />
+                                <b>Araç Değişimi = </b>#{hasarKaydiController.hasarKaydi.degisim} <br />               
+
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <h:form>
+                                <h:commandButton onclick="$('.modal').modal('.hide')" action="#{hasarKaydiController.delete()}" value="Confirm" styleClass="btn btn-danger">
+                                    <f:ajax execute="@this" render="hasarKaydi-table hasarKaydi-form"/>
+                                </h:commandButton>
+                                <h:commandButton styleClass="btn btn-secondary" action="#{hasarKaydiController.clearForm()}" value="Close" />
+                            </h:form>
+                        </div>
+                    </h:panelGroup>
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+        </script> <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script> 
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    </h:body>
+</html>
+

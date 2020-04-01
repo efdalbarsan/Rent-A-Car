@@ -5,8 +5,7 @@ public class Firma {
     private String adi;
     private String telefon;
     private String email;
-    private String adres;
-    
+    private String adres;  
     private Firma firma;
 
     public Firma() {
@@ -21,7 +20,14 @@ public class Firma {
         this.firma = firma;
     }
 
-  
+    public Firma(int firmaid, String adi, String telefon, String email, String adres) {
+        this.firmaid = firmaid;
+        this.adi = adi;
+        this.telefon = telefon;
+        this.email = email;
+        this.adres = adres;
+    }
+
 
     public int getFirmaid() {
         return firmaid;

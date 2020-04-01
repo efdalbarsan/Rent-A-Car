@@ -22,7 +22,10 @@
                             </li>   
                             <li class="nav-item">
                                 <h:commandLink styleClass="nav-link" action="Firma" value="Firma"/>
-                            </li>  
+                            </li>
+                            <li class="nav-item">
+                                <h:commandLink styleClass="nav-link" action="HasarKaydi" value="HasarKaydi"/>
+                            </li> 
                         </ul>
                     </h:form>
                 </div>
@@ -32,7 +35,7 @@
             <div class="row">
                 <div class="col-md-11">
                     <h:form id="firma-table">
-                        <h:dataTable styleClass="table table-striped table-hover" value="#{firmaController.firma}" var="firm">
+                        <h:dataTable styleClass="table table-striped table-hover" value="#{firmaController.clist}" var="firm">
                             <h:column>
                                 <f:facet name="header">ID</f:facet>
                                 <h:commandLink action="#{firmaController.updateForm(firm)}" value="#{firm.firmaid}">
