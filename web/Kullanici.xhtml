@@ -19,7 +19,7 @@
                             </li>
                             <li class="nav-item">
                                 <h:commandLink styleClass="nav-link" action="arac" value="Arac"/>
-                            </li>   
+                            </li>
                             <li class="nav-item">
                                 <h:commandLink styleClass="nav-link" action="Firma" value="Firma"/>
                             </li>
@@ -46,33 +46,33 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-11">
-                    <h:form id="firma-table">
-                        <h:dataTable styleClass="table table-striped table-hover" value="#{firmaController.clist}" var="firm">
+                    <h:form id="kullanici-table">
+                        <h:dataTable styleClass="table table-striped table-hover" value="#{kullaniciController.kullaniciList}" var="user">
                             <h:column>
                                 <f:facet name="header">ID</f:facet>
-                                <h:commandLink action="#{firmaController.updateForm(firm)}" value="#{firm.firmaid}">
-                                    <f:ajax execute="@this" render="firma-form" /> 
+                                <h:commandLink action="#{kullaniciController.updateForm(user)}" value="#{user.kullaniciid}">
+                                    <f:ajax execute="@this" render="kullanici-form" /> 
                                 </h:commandLink> 
                             </h:column>
                             <h:column>
-                                <f:facet name="header">İSİM</f:facet>
-                                    #{firm.adi}
+                                <f:facet name="header">E-MAIL</f:facet>
+                                    #{user.email}
                             </h:column>
                             <h:column>
-                                <f:facet name="header">TELEFON BİLGİSİ</f:facet>
-                                    #{firm.telefon}
+                                <f:facet name="header">KULLANICI ADI</f:facet>
+                                    #{user.kullaniciadi}
                             </h:column>
                             <h:column>
-                                <f:facet name="header">E MAİL</f:facet>
-                                    #{firm.email}
+                                <f:facet name="header">SIFRE</f:facet>
+                                    #{user.sifre}
                             </h:column>
                             <h:column>
-                                <f:facet name="header">ADRES</f:facet>
-                                    #{firm.adres}
+                                <f:facet name="header">GRUP ID</f:facet>
+                                    #{user.grupid}
                             </h:column>
                             <h:column>
                                 <f:facet name="header">DELETE</f:facet>
-                                <h:commandButton onclick="$('#myModal').modal('show')" styleClass="btn btn-sm btn-danger" action="#{firmaController.deleteConfirm(firm)}" value ="Delete">
+                                <h:commandButton onclick="$('#myModal').modal('show')" styleClass="btn btn-sm btn-danger" action="#{kullaniciController.deleteConfirm(user)}" value ="Delete">
                                     <f:ajax execute="@this" render="delete-modal"/>
                                 </h:commandButton>
                             </h:column>
@@ -80,37 +80,37 @@
                     </h:form>
                 </div>
                 <div class="col-md-1">
-                    <h:form id="firma-form">
+                    <h:form id="kullanici-form">
                         <div class="form-inline">
-                            <h:inputHidden value ="#{firmaController.firma.adi}"/>
-                            <label for="inputPlaka">FIRMA ADI</label>
-                            <h:inputText styleClass="form-control" value ="#{firmaController.firma.adi}"/>
+                            <h:inputHidden value ="#{kullaniciController.kullanici.email}"/>
+                            <label for="inputEmail">E MAIL</label>
+                            <h:inputText styleClass="form-control" value ="#{kullaniciController.kullanici.email}"/>
                         </div>
                         <div class="form-inline">
-                            <h:inputHidden value ="#{firmaController.firma.telefon}"/>
-                            <label for="inputPlaka">TELEFON</label>
-                            <h:inputText styleClass="form-control" value ="#{firmaController.firma.telefon}"/>
+                            <h:inputHidden value ="#{kullaniciController.kullanici.kullaniciadi}"/>
+                            <label for="inputKullanciAdi">KULLANICI ADI</label>
+                            <h:inputText styleClass="form-control" value ="#{kullaniciController.kullanici.kullaniciadi}"/>
                         </div>
                         <div class="form-inline">
-                            <h:inputHidden value ="#{firmaController.firma.email}"/>
-                            <label for="inputPlaka">E-MAİL</label>
-                            <h:inputText styleClass="form-control" value ="#{firmaController.firma.email}"/>
+                            <h:inputHidden value ="#{kullaniciController.kullanici.sifre}"/>
+                            <label for="inputSifre">E-MAİL</label>
+                            <h:inputText styleClass="form-control" value ="#{kullaniciController.kullanici.sifre}"/>
                         </div>
                         <div class="form-inline">
-                            <h:inputHidden value ="#{firmaController.firma.adres}"/>
-                            <label for="inputPlaka">ADRES</label>
-                            <h:inputText styleClass="form-control" value ="#{firmaController.firma.adres}"/>
+                            <h:inputHidden value ="#{kullaniciController.kullanici.grupid}"/>
+                            <label for="inputGrupId">GRUP ID</label>
+                            <h:inputText styleClass="form-control" value ="#{kullaniciController.kullanici.grupid}"/>
                         </div>
                         <div class="form-group">
                             <div class="btn-group">
-                                <h:commandButton rendered="#{firmaController.firma.adi == null}" styleClass="btn btn-primary" value="Create" action="#{firmaController.create}">
-                                    <f:ajax execute="firma-form" render="firma-form firma-table"/> 
+                                <h:commandButton rendered="#{kullaniciController.kullanici.email == null}" styleClass="btn btn-primary" value="Create" action="#{kullaniciController.create}">
+                                    <f:ajax execute="kullanici-form" render="kullanici-form kullanici-table"/> 
                                 </h:commandButton>
-                                <h:commandButton rendered="#{firmaController.firma.adi != null}" styleClass="btn btn-dark" value="Update" action="#{firmaController.modify}">
-                                    <f:ajax execute="firma-form" render="firma-form firma-table"/>
+                                <h:commandButton rendered="#{kullaniciController.kullanici.email != null}" styleClass="btn btn-dark" value="Update" action="#{kullaniciController.modify}">
+                                    <f:ajax execute="kullanici-form" render="kullanici-form kullanici-table"/>
                                 </h:commandButton>
-                                <h:commandButton rendered="#{firmaController.firma.adi != null}" styleClass="btn btn-danger" value="Clear Form" action="#{firmaController.clearForm}">
-                                    <f:ajax execute="@this" render="firma-form"/> 
+                                <h:commandButton rendered="#{kullaniciController.kullanici.email != null}" styleClass="btn btn-danger" value="Clear Form" action="#{kullaniciController.clearForm}">
+                                    <f:ajax execute="@this" render="kullanici-form"/> 
                                 </h:commandButton>
                             </div>
                         </div>
@@ -128,18 +128,20 @@
                         </div>
                         <div class="modal-body">
                             <p>
-                                Bu firmayı silmek istediğinizden eminmisiniz ?<br />
+                                Bu kullaniciyi silmek istediğinizden eminmisiniz ?<br />
 
-                                <b>Firma ismi = </b>#{firmaController.firma.adi} <br />
+                                <b>Kullanici Mail= </b>#{kullaniciController.kullanici.email} <br />
+                                <b>Kullanici ADI= </b>#{kullaniciController.kullanici.kullaniciadi} <br />
+
 
                             </p>
                         </div>
                         <div class="modal-footer">
                             <h:form>
-                                <h:commandButton onclick="$('.modal').modal('.hide')" action="#{firmaController.delete}" value="Confirm" styleClass="btn btn-danger">
-                                    <f:ajax execute="@this" render="firma-table firma-form"/>
+                                <h:commandButton onclick="$('.modal').modal('.hide')" action="#{kullaniciController.delete}" value="Confirm" styleClass="btn btn-danger">
+                                    <f:ajax execute="@this" render="kullanici-table kullanici-form"/>
                                 </h:commandButton>
-                                <h:commandButton styleClass="btn btn-secondary" action="#{firmaController.clearForm()}" value="Close" />
+                                <h:commandButton styleClass="btn btn-secondary" action="#{kullaniciController.clearForm()}" value="Close" />
                             </h:form>
                         </div>
                     </h:panelGroup>
