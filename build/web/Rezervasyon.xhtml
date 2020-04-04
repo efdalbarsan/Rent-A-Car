@@ -19,13 +19,13 @@
                             </li>
                             <li class="nav-item">
                                 <h:commandLink styleClass="nav-link" action="arac" value="Arac"/>
-                            </li>
+                            </li> 
                             <li class="nav-item">
                                 <h:commandLink styleClass="nav-link" action="Firma" value="Firma"/>
                             </li>
                             <li class="nav-item">
                                 <h:commandLink styleClass="nav-link" action="HasarKaydi" value="HasarKaydi"/>
-                            </li>
+                            </li> 
                             <li class="nav-item">
                                 <h:commandLink styleClass="nav-link" action="Rezervasyon" value="Rezervasyon"/>
                             </li> 
@@ -34,36 +34,36 @@
                 </div>
             </nav>
         </div>
-        <div class="container">
-            <div class="row">
+        <div class ="container">
+            <div class="row" >
                 <div class="col-md-11">
-                    <h:form id="musteri-table">
-                        <h:dataTable styleClass="table table-striped table-hover" value="#{musteriController.musteriList}" var="must">
+                    <h:form id="rezervasyon-table" >
+                        <h:dataTable value ="#{rezervasyonController.rezervasyonList}" var="rz" styleClass="table table-borderless table-striped">
                             <h:column>
-                                <f:facet name="header">ID</f:facet>
-                                <h:commandLink action="#{musteriController.updateForm(must)}" value="#{must.musteriid}">
-                                    <f:ajax execute="@this" render="musteri-form" /> 
-                                </h:commandLink> 
+                                <f:facet name="header">Rezervasyon ID</f:facet>
+                                <h:commandLink action="#{rezervasyonController.updateForm(rz)}" value ="#{rz.rezervasyonid}">
+                                    <f:ajax execute="@this" render="rezervasyon-form"/>
+                                </h:commandLink>
                             </h:column>
                             <h:column>
-                                <f:facet name="header">İSİM</f:facet>
-                                    #{must.adi}
+                                <f:facet name="header">ARAC ID</f:facet>
+                                    #{rz.aracid}
                             </h:column>
                             <h:column>
-                                <f:facet name="header">TELEFON BİLGİSİ</f:facet>
-                                    #{must.telefon}
+                                <f:facet name="header">MUSTERI ID</f:facet>
+                                    #{rz.musteriid}
                             </h:column>
                             <h:column>
-                                <f:facet name="header">E MAİL</f:facet>
-                                    #{must.email}
+                                <f:facet name="header">ACIKLAMA</f:facet>
+                                    #{rz.aciklama}
                             </h:column>
                             <h:column>
-                                <f:facet name="header">ADRES</f:facet>
-                                    #{must.adres}
+                                <f:facet name="header">TARIH</f:facet>
+                                    #{rz.tarih}
                             </h:column>
                             <h:column>
                                 <f:facet name="header">DELETE</f:facet>
-                                <h:commandButton onclick="$('#myModal').modal('show')" styleClass="btn btn-sm btn-danger" action="#{musteriController.deleteConfirm(must)}" value ="Delete">
+                                <h:commandButton onclick="$('#myModal').modal('show')" styleClass="btn btn-sm btn-danger" action="#{rezervasyonController.deleteConfirm(rz)}" value ="Delete">
                                     <f:ajax execute="@this" render="delete-modal"/>
                                 </h:commandButton>
                             </h:column>
@@ -71,37 +71,37 @@
                     </h:form>
                 </div>
                 <div class="col-md-1">
-                    <h:form id="musteri-form">
+                    <h:form id="rezervasyon-form">
                         <div class="form-inline">
-                            <h:inputHidden value ="#{musteriController.musteri.adi}"/>
-                            <label for="inputPlaka">İSİM-SOYİSİM</label>
-                            <h:inputText styleClass="form-control" value ="#{musteriController.musteri.adi}"/>
+                            <h:inputHidden value="#{rezervasyonController.rezervasyon.rezervasyonid}"/>
+                            <label for="inputaracid">ARAC ID</label>
+                            <h:inputText styleClass="form-control" value="#{rezervasyonController.rezervasyon.aracid}"/>
                         </div>
                         <div class="form-inline">
-                            <h:inputHidden value ="#{musteriController.musteri.telefon}"/>
-                            <label for="inputPlaka">TELEFON</label>
-                            <h:inputText styleClass="form-control" value ="#{musteriController.musteri.telefon}"/>
+                            <label for="inputmuteriid">MUSTERI ID</label>
+                            <h:inputText styleClass="form-control" value="#{rezervasyonController.rezervasyon.musteriid}"/>
                         </div>
                         <div class="form-inline">
-                            <h:inputHidden value ="#{musteriController.musteri.email}"/>
-                            <label for="inputPlaka">E-MAİL</label>
-                            <h:inputText styleClass="form-control" value ="#{musteriController.musteri.email}"/>
+                            <label for="inputaciklama">ACIKLAMA</label>
+                            <h:inputText styleClass="form-control" value="#{rezervasyonController.rezervasyon.aciklama}"/>
                         </div>
                         <div class="form-inline">
-                            <h:inputHidden value ="#{musteriController.musteri.adres}"/>
-                            <label for="inputPlaka">ADRES</label>
-                            <h:inputText styleClass="form-control" value ="#{musteriController.musteri.adres}"/>
+                            <label for="inputtarih">TARIH</label>
+                            <h:inputText styleClass="form-control" value="#{rezervasyonController.rezervasyon.tempDate}"/>
                         </div>
+
+
+
                         <div class="form-group">
                             <div class="btn-group">
-                                <h:commandButton rendered="#{musteriController.musteri.adi == null}" styleClass="btn btn-primary" value="Create" action="#{musteriController.create}">
-                                    <f:ajax execute="musteri-form" render="musteri-form musteri-table"/> 
+                                <h:commandButton rendered="#{rezervasyonController.rezervasyon.aciklama == null}" styleClass="btn btn-primary" value="Create" action="#{rezervasyonController.create}">
+                                    <f:ajax execute="rezervasyon-form" render="rezervasyon-form rezervasyon-table"/> 
                                 </h:commandButton>
-                                <h:commandButton rendered="#{musteriController.musteri.adi != null}" styleClass="btn btn-dark" value="Update" action="#{musteriController.modify}">
-                                    <f:ajax execute="musteri-form" render="musteri-form musteri-table"/>
+                                <h:commandButton rendered="#{rezervasyonController.rezervasyon.aciklama != null}" styleClass="btn btn-dark" value="Update" action="#{rezervasyonController.modify}">
+                                    <f:ajax execute="rezervasyon-form" render="rezervasyon-form rezervasyon-table"/>
                                 </h:commandButton>
-                                <h:commandButton rendered="#{musteriController.musteri.adi != null}" styleClass="btn btn-danger" value="Clear Form" action="#{musteriController.clearForm}">
-                                    <f:ajax execute="@this" render="musteri-form"/> 
+                                <h:commandButton rendered="#{rezervasyonController.rezervasyon.aciklama != null}" styleClass="btn btn-danger" value="Clear Form" action="#{rezervasyonController.clearForm}">
+                                    <f:ajax execute="@this" render="rezervasyon-form"/> 
                                 </h:commandButton>
                             </div>
                         </div>
@@ -119,18 +119,20 @@
                         </div>
                         <div class="modal-body">
                             <p>
-                                Bu müşteriyi silmek istediğinizden eminmisiniz ?<br />
+                                Bu kaydı silmek istediğinizden eminmisiniz ?<br />
 
-                                <b>Müşteri ismi = </b>#{musteriController.musteri.adi} <br />
+                                <b>Araç ID si = </b>#{rezervasyonController.rezervasyon.aracid} <br />
+                                <b>Rezervasyon ID si = </b>#{rezervasyonController.rezervasyon.rezervasyonid} <br />
+                                <b>Rezervasyon Tarihi = </b>#{rezervasyonController.rezervasyon.tarih} <br />               
 
                             </p>
                         </div>
                         <div class="modal-footer">
                             <h:form>
-                                <h:commandButton onclick="$('.modal').modal('.hide')" action="#{musteriController.delete}" value="Confirm" styleClass="btn btn-danger">
-                                    <f:ajax execute="@this" render="musteri-table musteri-form"/>
+                                <h:commandButton onclick="$('.modal').modal('.hide')" action="#{rezervasyonController.delete()}" value="Confirm" styleClass="btn btn-danger">
+                                    <f:ajax execute="@this" render="rezervasyon-table rezervasyon-form"/>
                                 </h:commandButton>
-                                <h:commandButton styleClass="btn btn-secondary" action="#{musteriController.clearForm()}" value="Close" />
+                                <h:commandButton styleClass="btn btn-secondary" action="#{rezervasyonController.clearForm()}" value="Close" />
                             </h:form>
                         </div>
                     </h:panelGroup>

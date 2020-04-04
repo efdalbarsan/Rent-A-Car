@@ -32,17 +32,16 @@ public class HasarKaydiController implements Serializable{
 
     public void delete() {
         this.getHasarKaydiDAO().delete(this.hasarKaydi);
-        this.hasarKaydi = new HasarKaydi();
+        clearForm();
     }
 
     public void modify() {
         this.getHasarKaydiDAO().update(this.hasarKaydi);
-        this.clearForm();
     }
 
     public void create() {
         this.getHasarKaydiDAO().insert(this.hasarKaydi);
-        this.hasarKaydi = new HasarKaydi();
+        clearForm();
     }
 
 

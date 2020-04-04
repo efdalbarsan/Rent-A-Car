@@ -32,7 +32,7 @@ public class HasarKaydiDAO {
             }
 
         } catch (SQLException ex) {
-            System.out.println("ex.getMessage");
+            System.out.println(ex.getMessage());
         }
         return clist;
     }

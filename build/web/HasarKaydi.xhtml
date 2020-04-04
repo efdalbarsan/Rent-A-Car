@@ -25,6 +25,9 @@
                             </li>
                             <li class="nav-item">
                                 <h:commandLink styleClass="nav-link" action="HasarKaydi" value="HasarKaydi"/>
+                            </li>
+                            <li class="nav-item">
+                                <h:commandLink styleClass="nav-link" action="Rezervasyon" value="Rezervasyon"/>
                             </li> 
                         </ul>
                     </h:form>
@@ -73,24 +76,24 @@
                 </div>
                 <div class="col-md-1">
                     <h:form id="hasarKaydi-form">
-                        <div class="form inlene">
+                        <div class="form-inline">
                             <h:inputHidden value="#{hasarKaydiController.hasarKaydi.hasarid}"/>
                             <label for="inputaracid">ARAC ID</label>
                             <h:inputText styleClass="form-control" value="#{hasarKaydiController.hasarKaydi.aracid}"/>
                         </div>
-                        <div class="form inlene">
+                        <div class="form-inline">
                             <label for="inputboya">BOYA</label>
                             <h:inputText styleClass="form-control" value="#{hasarKaydiController.hasarKaydi.boya}"/>
                         </div>
-                        <div class="form inlene">
+                        <div class="form-inline">
                             <label for="inputcizik">CIZIK</label>
                             <h:inputText styleClass="form-control" value="#{hasarKaydiController.hasarKaydi.cizik}"/>
                         </div>
-                        <div class="form inlene">
+                        <div class="form-inline">
                             <label for="inputdegisim">DEGISIM</label>
                             <h:inputText styleClass="form-control" value="#{hasarKaydiController.hasarKaydi.degisim}"/>
                         </div>
-                        <div class="form inlene">
+                        <div class="form-inline">
                             <label for="inputaciklama">ACIKLAMA</label>
                             <h:inputText styleClass="form-control" value="#{hasarKaydiController.hasarKaydi.aciklama}"/>
                         </div>
