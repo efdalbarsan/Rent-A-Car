@@ -43,37 +43,29 @@
         <div class ="container">
             <div class="row" >
                 <div class="col-md-11">
-                    <h:form id="hasarKaydi-table" >
-                        <h:dataTable value ="#{hasarKaydiController.hasarKaydiList}" var="hk" styleClass="table table-borderless table-striped">
+                    <h:form id="Yorum-table" >
+                        <h:dataTable value ="#{yorumController.yorumList}" var="yor" styleClass="table table-borderless table-striped">
                             <h:column>
-                                <f:facet name="header">HASAR KAYDI ID</f:facet>
-                                <h:commandLink action="#{hasarKaydiController.updateForm(hk)}" value ="#{hk.hasarid}">
-                                    <f:ajax execute="@this" render="hasarKaydi-form"/>
+                                <f:facet name="header">YORUM ID</f:facet>
+                                <h:commandLink action="#{yorumController.updateForm(yor)}" value ="#{yor.yorumid}">
+                                    <f:ajax execute="@this" render="Yorum-form"/>
                                 </h:commandLink>
                             </h:column>
                             <h:column>
+                                <f:facet name="header">MUSTERI ID</f:facet>
+                                    #{yor.musteriid}
+                            </h:column>
+                            <h:column>
                                 <f:facet name="header">ARAC ID</f:facet>
-                                    #{hk.aracid}
+                                    #{yor.aracid}
                             </h:column>
                             <h:column>
-                                <f:facet name="header">BOYA</f:facet>
-                                    #{hk.boya}
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">ÇİZİK</f:facet>
-                                    #{hk.cizik}
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">DEĞİŞİM</f:facet>
-                                    #{hk.degisim}
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">ACIKLAMA</f:facet>
-                                    #{hk.aciklama}
+                                <f:facet name="header">YORUM</f:facet>
+                                    #{yor.yorum}
                             </h:column>
                             <h:column>
                                 <f:facet name="header">DELETE</f:facet>
-                                <h:commandButton onclick="$('#myModal').modal('show')" styleClass="btn btn-sm btn-danger" action="#{hasarKaydiController.deleteConfirm(hk)}" value ="Delete">
+                                <h:commandButton onclick="$('#myModal').modal('show')" styleClass="btn btn-sm btn-danger" action="#{yorumController.deleteConfirm(yor)}" value ="Delete">
                                     <f:ajax execute="@this" render="delete-modal"/>
                                 </h:commandButton>
                             </h:column>
@@ -81,38 +73,30 @@
                     </h:form>
                 </div>
                 <div class="col-md-1">
-                    <h:form id="hasarKaydi-form">
+                    <h:form id="Yorum-form">
                         <div class="form-inline">
-                            <h:inputHidden value="#{hasarKaydiController.hasarKaydi.hasarid}"/>
-                            <label for="inputaracid">ARAC ID</label>
-                            <h:inputText styleClass="form-control" value="#{hasarKaydiController.hasarKaydi.aracid}"/>
+                            <h:inputHidden value="#{yorumController.yorum.yorumid}"/>
+                            <label for="inputMusteriId">MUSTERI ID</label>
+                            <h:inputText styleClass="form-control" value="#{yorumController.yorum.musteriid}"/>
                         </div>
                         <div class="form-inline">
-                            <label for="inputboya">BOYA</label>
-                            <h:inputText styleClass="form-control" value="#{hasarKaydiController.hasarKaydi.boya}"/>
+                            <label for="inputaAracId">ARAC ID</label>
+                            <h:inputText styleClass="form-control" value="#{yorumController.yorum.aracid}"/>
                         </div>
                         <div class="form-inline">
-                            <label for="inputcizik">CIZIK</label>
-                            <h:inputText styleClass="form-control" value="#{hasarKaydiController.hasarKaydi.cizik}"/>
-                        </div>
-                        <div class="form-inline">
-                            <label for="inputdegisim">DEGISIM</label>
-                            <h:inputText styleClass="form-control" value="#{hasarKaydiController.hasarKaydi.degisim}"/>
-                        </div>
-                        <div class="form-inline">
-                            <label for="inputaciklama">ACIKLAMA</label>
-                            <h:inputText styleClass="form-control" value="#{hasarKaydiController.hasarKaydi.aciklama}"/>
-                        </div>
+                            <label for="inputYorum">YORUM</label>
+                            <h:inputText styleClass="form-control" value="#{yorumController.yorum.yorum}"/>
+                        </div>    
                         <div class="form-group">
                             <div class="btn-group">
-                                <h:commandButton rendered="#{hasarKaydiController.hasarKaydi.boya == null}" styleClass="btn btn-primary" value="Create" action="#{hasarKaydiController.create}">
-                                    <f:ajax execute="hasarKaydi-form" render="hasarKaydi-form hasarKaydi-table"/> 
+                                <h:commandButton rendered="#{yorumController.yorum.yorum == null}" styleClass="btn btn-primary" value="Create" action="#{yorumController.create}">
+                                    <f:ajax execute="Yorum-form" render="Yorum-form Yorum-table"/> 
                                 </h:commandButton>
-                                <h:commandButton rendered="#{hasarKaydiController.hasarKaydi.boya != null}" styleClass="btn btn-dark" value="Update" action="#{hasarKaydiController.modify}">
-                                    <f:ajax execute="hasarKaydi-form" render="hasarKaydi-form hasarKaydi-table"/>
+                                <h:commandButton rendered="#{yorumController.yorum.yorum != null}" styleClass="btn btn-dark" value="Update" action="#{yorumController.modify}">
+                                    <f:ajax execute="Yorum-form" render="Yorum-form Yorum-table"/>
                                 </h:commandButton>
-                                <h:commandButton rendered="#{hasarKaydiController.hasarKaydi.boya != null}" styleClass="btn btn-danger" value="Clear Form" action="#{hasarKaydiController.clearForm}">
-                                    <f:ajax execute="@this" render="hasarKaydi-form"/> 
+                                <h:commandButton rendered="#{yorumController.yorum.yorum != null}" styleClass="btn btn-danger" value="Clear Form" action="#{yorumController.clearForm}">
+                                    <f:ajax execute="@this" render="Yorum-form"/> 
                                 </h:commandButton>
                             </div>
                         </div>
@@ -130,20 +114,20 @@
                         </div>
                         <div class="modal-body">
                             <p>
-                                Bu kaydı silmek istediğinizden eminmisiniz ?<br />
+                                Bu yorumu silmek istediğinizden eminmisiniz ?<br />
 
-                                <b>Araç Boyası = </b>#{hasarKaydiController.hasarKaydi.boya} <br />
-                                <b>Araç Çiziği = </b>#{hasarKaydiController.hasarKaydi.cizik} <br />
-                                <b>Araç Değişimi = </b>#{hasarKaydiController.hasarKaydi.degisim} <br />               
+                                <b>Musteri Id = </b>#{yorumController.yorum.musteriid} <br />
+                                <b>Araç Id = </b>#{yorumController.yorum.aracid} <br />
+                                <b>Yorum = </b>#{yorumController.yorum.yorum} <br />               
 
                             </p>
                         </div>
                         <div class="modal-footer">
                             <h:form>
-                                <h:commandButton onclick="$('.modal').modal('.hide')" action="#{hasarKaydiController.delete()}" value="Confirm" styleClass="btn btn-danger">
-                                    <f:ajax execute="@this" render="hasarKaydi-table hasarKaydi-form"/>
+                                <h:commandButton onclick="$('.modal').modal('.hide')" action="#{yorumController.delete()}" value="Confirm" styleClass="btn btn-danger">
+                                    <f:ajax execute="@this" render="Yorum-table Yorum-form"/>
                                 </h:commandButton>
-                                <h:commandButton styleClass="btn btn-secondary" action="#{hasarKaydiController.clearForm()}" value="Close" />
+                                <h:commandButton styleClass="btn btn-secondary" action="#{yorumController.clearForm()}" value="Close" />
                             </h:form>
                         </div>
                     </h:panelGroup>
