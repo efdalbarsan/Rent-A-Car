@@ -2,30 +2,26 @@ package dao;
 
 
 import entity.Rezervasyon;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import util.DBConnection;
 
-public class RezervasyonDAO {
+public class RezervasyonDAO extends Dao{
 
-    private DBConnection connection;
-    private Connection c;
-
-    public List<Rezervasyon> getRezervasyon() {
+    @Override
+    public List read() {
         List<Rezervasyon> clist = new ArrayList();
 
         try {
-            Statement st = this.getC().createStatement();                    //sorgulari statement uzerinden yapariz
+            Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
             ResultSet rs = st.executeQuery("select * from rezervasyon"); //executeQuery veritabanindan veri cekme islemini yapar. 
 
             while (rs.next()) {
                 Rezervasyon tmp;
-                tmp = new Rezervasyon(rs.getInt("rezervasyonid"), rs.getInt("aracid"), rs.getInt("musteriid"), rs.getString("aciklama"), rs.getDate("tarih"));
+                tmp = new Rezervasyon(rs.getInt("rezervasyonid"), rs.getInt("aracid"), rs.getInt("kullaniciid"), rs.getString("aciklama"), rs.getDate("tarih"));
                 tmp.setTempDate(String.valueOf(tmp.getTarih()));
                 clist.add(tmp);//Her yeni rezervasyoni listeme ekliyorum
 
@@ -37,12 +33,14 @@ public class RezervasyonDAO {
         return clist;
     }
 
-    public void insert(Rezervasyon rezervasyon) {
-        String q = "insert into rezervasyon(aracid,musteriid,aciklama,tarih) values (?,?,?,?)";
+    @Override
+    public void create(Object obj) {
+        Rezervasyon rezervasyon = (Rezervasyon) obj;
+        String q = "insert into rezervasyon(aracid,kullaniciid,aciklama,tarih) values (?,?,?,?)";
         try {
-            PreparedStatement st = this.getC().prepareStatement(q);
+            PreparedStatement st = this.getConn().prepareStatement(q);
             st.setInt(1, rezervasyon.getAracid());
-            st.setInt(2, rezervasyon.getMusteriid());
+            st.setInt(2, rezervasyon.getKullaniciid());
             st.setString(3, rezervasyon.getAciklama());
             st.setDate(4, rezervasyon.getTarih());
 
@@ -53,10 +51,12 @@ public class RezervasyonDAO {
         }
     }
 
-    public void delete(Rezervasyon rezervasyon) {
+    @Override
+    public void delete(Object obj) {
+        Rezervasyon rezervasyon = (Rezervasyon) obj;
         String q = "delete from rezervasyon where rezervasyonid = ?";
         try {
-            PreparedStatement st = c.prepareStatement(q);
+            PreparedStatement st = getConn().prepareStatement(q);
             st.setInt(1, rezervasyon.getRezervasyonid());
             st.executeUpdate();
 
@@ -65,13 +65,15 @@ public class RezervasyonDAO {
         }
     }
 
-    public void update(Rezervasyon rezervasyon) {
-        String q = "update rezervasyon set aracid=?,musteriid=?,aciklama=?,tarih=? where rezervasyonid = ?";
+    @Override
+    public void update(Object obj) {
+        Rezervasyon rezervasyon = (Rezervasyon) obj;
+        String q = "update rezervasyon set aracid=?,kullaniciid=?,aciklama=?,tarih=? where rezervasyonid = ?";
         System.out.println(rezervasyon.toString());
         try {
-            PreparedStatement st = this.getC().prepareStatement(q);
+            PreparedStatement st = this.getConn().prepareStatement(q);
             st.setInt(1, rezervasyon.getAracid());
-            st.setInt(2, rezervasyon.getMusteriid());
+            st.setInt(2, rezervasyon.getKullaniciid());
             st.setString(3, rezervasyon.getAciklama());
             st.setDate(4, rezervasyon.getTarih());
             st.setInt(5, rezervasyon.getRezervasyonid());
@@ -81,19 +83,5 @@ public class RezervasyonDAO {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-    }
-
-    public DBConnection getConnection() {
-        if (this.connection == null) {
-            this.connection = new DBConnection();
-        }
-        return connection;
-    }
-
-    public Connection getC() {
-        if (this.c == null) {
-            this.c = new DBConnection().connect();
-        }
-        return c;
     }
 }

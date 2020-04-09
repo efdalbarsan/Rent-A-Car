@@ -2,16 +2,16 @@ package entity;
 
 public class Yorum {
     private int yorumid;
-    private int musteriid;
+    private int kullaniciid;
     private int aracid;
     private String yorum;
 
     public Yorum() {
     }
 
-    public Yorum(int yorumid, int musteriid, int aracid, String yorum) {
+    public Yorum(int yorumid, int kullaniciid, int aracid, String yorum) {
         this.yorumid = yorumid;
-        this.musteriid = musteriid;
+        this.kullaniciid = kullaniciid;
         this.aracid = aracid;
         this.yorum = yorum;
     }
@@ -24,12 +24,12 @@ public class Yorum {
         this.yorumid = yorumid;
     }
 
-    public int getMusteriid() {
-        return musteriid;
+    public int getKullaniciid() {
+        return kullaniciid;
     }
 
-    public void setMusteriid(int musteriid) {
-        this.musteriid = musteriid;
+    public void setKullaniciid(int kullaniciid) {
+        this.kullaniciid = kullaniciid;
     }
 
     public int getAracid() {
@@ -50,8 +50,9 @@ public class Yorum {
 
     @Override
     public String toString() {
-        return "Yorum{" + "yorumid=" + yorumid + ", musteriid=" + musteriid + ", aracid=" + aracid + ", yorum=" + yorum + '}';
+        return "Yorum{" + "yorumid=" + yorumid + ", kullaniciid=" + kullaniciid + ", aracid=" + aracid + ", yorum=" + yorum + '}';
     }
-    
+
+   
     
 }

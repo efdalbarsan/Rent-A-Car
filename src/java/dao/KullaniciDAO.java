@@ -1,25 +1,22 @@
 package dao;
 
 import entity.Kullanici;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import util.DBConnection;
 
-public class KullaniciDAO {
 
-    private DBConnection connection;
-    private Connection c;
+public class KullaniciDAO extends Dao {
 
-    public List<Kullanici> getKullanici() {
+    @Override
+    public List read() {
         List<Kullanici> clist = new ArrayList();
 
         try {
-            Statement st = this.getC().createStatement();                    //sorgulari statement uzerinden yapariz
+            Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
             ResultSet rs = st.executeQuery("select * from kullanici"); //executeQuery veritabanindan veri cekme islemini yapar. 
 
             while (rs.next()) {
@@ -36,10 +33,12 @@ public class KullaniciDAO {
         return clist;
     }
 
-    public void insert(Kullanici kullanici) {
+    @Override
+    public void create(Object obj) {
+        Kullanici kullanici = (Kullanici) obj;
         String q = "insert into kullanici(email,kullaniciadi,sifre,grupid,telefon,adres,aracid) values (?,?,?,?,?,?,?)";
         try {
-            PreparedStatement st = this.getC().prepareStatement(q);
+            PreparedStatement st = this.getConn().prepareStatement(q);
             st.setString(1, kullanici.getEmail());
             st.setString(2, kullanici.getKullaniciadi());
             st.setString(3, kullanici.getSifre());
@@ -55,10 +54,12 @@ public class KullaniciDAO {
         }
     }
 
-    public void delete(Kullanici kullanici) {
+    @Override
+    public void delete(Object obj) {
+        Kullanici kullanici = (Kullanici) obj;
         String q = "delete from kullanici where kullaniciid = ?";
         try {
-            PreparedStatement st = c.prepareStatement(q);
+            PreparedStatement st = getConn().prepareStatement(q);
             st.setInt(1, kullanici.getKullaniciid());
             st.executeUpdate();
 
@@ -67,11 +68,13 @@ public class KullaniciDAO {
         }
     }
 
-    public void update(Kullanici kullanici) {
+    @Override
+    public void update(Object obj) {
+        Kullanici kullanici = (Kullanici) obj;
         String q = "update kullanici set email=?,kullaniciadi=?,sifre=?,grupid=?,telefon=?,adres=?,aracid=? where kullaniciid = ?";
         System.out.println(kullanici.toString());
         try {
-            PreparedStatement st = this.getC().prepareStatement(q);
+            PreparedStatement st = this.getConn().prepareStatement(q);
             st.setString(1, kullanici.getEmail());
             st.setString(2, kullanici.getKullaniciadi());
             st.setString(3, kullanici.getSifre());
@@ -88,17 +91,4 @@ public class KullaniciDAO {
         }
     }
 
-    public DBConnection getConnection() {
-        if (this.connection == null) {
-            this.connection = new DBConnection();
-        }
-        return connection;
-    }
-
-    public Connection getC() {
-        if (this.c == null) {
-            this.c = getConnection().connect();
-        }
-        return c;
-    }
 }

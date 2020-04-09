@@ -1,7 +1,6 @@
 package dao;
 
 import entity.Arac;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,20 +8,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import util.DBConnection;
-
-public class AracDAO {
-
-    private DBConnection connection;
-    private Connection c;
+public class AracDAO extends Dao {
 
     private FirmaDAO firmaDAO;
 
-    public List<Arac> getArac() {
+    @Override
+    public List read() {
         List<Arac> clist = new ArrayList();
 
         try {
-            Statement st = this.getC().createStatement();                    //sorgulari statement uzerinden yapariz
+            Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
             ResultSet rs = st.executeQuery("select * from arac"); //executeQuery veritabanindan veri cekme islemini yapar. 
 
             while (rs.next()) {
@@ -40,10 +35,12 @@ public class AracDAO {
         return clist;
     }
 
-    public void insert(Arac arac) {
+    @Override
+    public void create(Object obj) {
+        Arac arac = (Arac) obj;
         String q = "insert into arac(plaka,marka,model,motor,yil,kilometre,yakit,vites,firmaid,fiyat) values (?,?,?,?,?,?,?,?,?,?)";
         try {
-            PreparedStatement st = c.prepareStatement(q);
+            PreparedStatement st = getConn().prepareStatement(q);
             st.setString(1, arac.getPlaka());
             st.setString(2, arac.getMarka());
             st.setString(3, arac.getModel());
@@ -62,10 +59,12 @@ public class AracDAO {
         }
     }
 
-    public void delete(Arac arac) {
+    @Override
+    public void delete(Object obj) {
+        Arac arac = (Arac) obj;
         String q = "delete from arac where aracid = ?";
         try {
-            PreparedStatement st = c.prepareStatement(q);
+            PreparedStatement st = getConn().prepareStatement(q);
             st.setInt(1, arac.getAracid());
             st.executeUpdate();
 
@@ -74,10 +73,12 @@ public class AracDAO {
         }
     }
 
-    public void update(Arac arac) {
+    @Override
+    public void update(Object obj) {
+        Arac arac = (Arac) obj;
         String q = "update arac set plaka=?,marka=?,model=?,motor=?,yil=?,kilometre=?,yakit=?,vites=?,firmaid=?,fiyat=? where aracid = ?";
         try {
-            PreparedStatement st = c.prepareStatement(q);
+            PreparedStatement st = getConn().prepareStatement(q);
             st.setString(1, arac.getPlaka());
             st.setString(2, arac.getMarka());
             st.setString(3, arac.getModel());
@@ -101,20 +102,6 @@ public class AracDAO {
             this.firmaDAO = new FirmaDAO();
         }
         return firmaDAO;
-    }
-
-    public DBConnection getConnection() {
-        if (this.connection == null) {
-            this.connection = new DBConnection();
-        }
-        return connection;
-    }
-
-    public Connection getC() {
-        if (this.c == null) {
-            this.c = new DBConnection().connect();
-        }
-        return c;
     }
 
 }

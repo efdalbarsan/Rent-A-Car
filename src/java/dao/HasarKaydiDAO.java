@@ -1,26 +1,22 @@
 package dao;
 
-
 import entity.HasarKaydi;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import util.DBConnection;
 
-public class HasarKaydiDAO {
 
-    private DBConnection connection;
-    private Connection c;
+public class HasarKaydiDAO extends Dao {
 
-    public List<HasarKaydi> getHasarKaydi() {
+    @Override
+    public List read() {
         List<HasarKaydi> clist = new ArrayList();
 
         try {
-            Statement st = this.getC().createStatement();                    //sorgulari statement uzerinden yapariz
+            Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
             ResultSet rs = st.executeQuery("select * from hasarkaydi"); //executeQuery veritabanindan veri cekme islemini yapar. 
 
             while (rs.next()) {
@@ -37,10 +33,12 @@ public class HasarKaydiDAO {
         return clist;
     }
 
-    public void insert(HasarKaydi hasarKaydi) {
+    @Override
+    public void create(Object obj) {
+        HasarKaydi hasarKaydi = (HasarKaydi) obj;
         String q = "insert into hasarkaydi(aracid,boya,cizik,degisim,aciklama) values (?,?,?,?,?)";
         try {
-            PreparedStatement st = c.prepareStatement(q);
+            PreparedStatement st = getConn().prepareStatement(q);
             st.setInt(1, hasarKaydi.getAracid());
             st.setString(2, hasarKaydi.getBoya());
             st.setString(3, hasarKaydi.getCizik());
@@ -54,10 +52,12 @@ public class HasarKaydiDAO {
         }
     }
 
-    public void delete(HasarKaydi hasarKaydi) {
+    @Override
+    public void delete(Object obj) {
+        HasarKaydi hasarKaydi = (HasarKaydi) obj;
         String q = "delete from hasarkaydi where hasarid = ?";
         try {
-            PreparedStatement st = c.prepareStatement(q);
+            PreparedStatement st = getConn().prepareStatement(q);
             st.setInt(1, hasarKaydi.getHasarid());
             st.executeUpdate();
 
@@ -65,10 +65,13 @@ public class HasarKaydiDAO {
             System.out.println(ex.getMessage());
         }
     }
-        public void update(HasarKaydi hasarKaydi) {
+
+    @Override
+    public void update(Object obj) {
+        HasarKaydi hasarKaydi = (HasarKaydi) obj;
         String q = "update hasarkaydi set aracid=?,boya=?,cizik=?,degisim=?,aciklama=? where hasarid = ?";
         try {
-            PreparedStatement st = c.prepareStatement(q);
+            PreparedStatement st = getConn().prepareStatement(q);
             st.setInt(1, hasarKaydi.getAracid());
             st.setString(2, hasarKaydi.getBoya());
             st.setString(3, hasarKaydi.getCizik());
@@ -81,19 +84,5 @@ public class HasarKaydiDAO {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-    }
-
-    public DBConnection getConnection() {
-        if (this.connection == null) {
-            this.connection = new DBConnection();
-        }
-        return connection;
-    }
-
-    public Connection getC() {
-        if (this.c == null) {
-            this.c = new DBConnection().connect();
-        }
-        return c;
     }
 }

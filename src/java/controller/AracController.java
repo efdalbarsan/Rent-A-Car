@@ -45,12 +45,12 @@ public class AracController implements Serializable {
     }
 
     public void create() {
-        this.getAdao().insert(this.arac);
+        this.getAdao().create(this.arac);
         clearForm();
     }
 
     public List<Arac> getClist() {
-        this.clist = this.getAdao().getArac();
+        this.clist = this.getAdao().read();
         return this.clist;
     }
 

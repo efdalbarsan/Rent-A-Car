@@ -52,8 +52,8 @@
                                 </h:commandLink>
                             </h:column>
                             <h:column>
-                                <f:facet name="header">MUSTERI ID</f:facet>
-                                    #{yor.musteriid}
+                                <f:facet name="header">KULLANICI ID</f:facet>
+                                    #{yor.kullaniciid}
                             </h:column>
                             <h:column>
                                 <f:facet name="header">ARAC ID</f:facet>
@@ -76,8 +76,8 @@
                     <h:form id="Yorum-form">
                         <div class="form-inline">
                             <h:inputHidden value="#{yorumController.yorum.yorumid}"/>
-                            <label for="inputMusteriId">MUSTERI ID</label>
-                            <h:inputText styleClass="form-control" value="#{yorumController.yorum.musteriid}"/>
+                            <label for="inputMusteriId">KULLANICI ID</label>
+                            <h:inputText styleClass="form-control" value="#{yorumController.yorum.kullaniciid}"/>
                         </div>
                         <div class="form-inline">
                             <label for="inputaAracId">ARAC ID</label>
@@ -116,7 +116,7 @@
                             <p>
                                 Bu yorumu silmek istediğinizden eminmisiniz ?<br />
 
-                                <b>Musteri Id = </b>#{yorumController.yorum.musteriid} <br />
+                                <b>Kullanici Id = </b>#{yorumController.yorum.kullaniciid} <br />
                                 <b>Araç Id = </b>#{yorumController.yorum.aracid} <br />
                                 <b>Yorum = </b>#{yorumController.yorum.yorum} <br />               
 

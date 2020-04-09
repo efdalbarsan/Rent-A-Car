@@ -46,12 +46,12 @@ public class FirmaController implements Serializable {
     }
 
     public void create() {
-        this.getFirmaDAO().insert(this.firma);
+        this.getFirmaDAO().create(this.firma);
         clearForm();
     }
 
     public List<Firma> getClist() {
-        this.clist = this.getFirmaDAO().getFirmas();
+        this.clist = this.getFirmaDAO().read();
         return this.clist;
     }
 

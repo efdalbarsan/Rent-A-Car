@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Rezervasyon {
     private int rezervasyonid;
     private int aracid;
-    private int musteriid;
+    private int kullaniciid;
     private String aciklama;
     private Date tarih;
     private String tempDate;
@@ -16,7 +16,7 @@ public class Rezervasyon {
     public Rezervasyon(int rezervasyonid, int aracid, int musteriid, String aciklama, Date tarih) {
         this.rezervasyonid = rezervasyonid;
         this.aracid = aracid;
-        this.musteriid = musteriid;
+        this.kullaniciid = musteriid;
         this.aciklama = aciklama;
         this.tarih = tarih;
     }
@@ -46,13 +46,14 @@ public class Rezervasyon {
         this.aracid = aracid;
     }
 
-    public int getMusteriid() {
-        return musteriid;
+    public int getKullaniciid() {
+        return kullaniciid;
     }
 
-    public void setMusteriid(int musteriid) {
-        this.musteriid = musteriid;
+    public void setKullaniciid(int kullaniciid) {
+        this.kullaniciid = kullaniciid;
     }
+
 
     public String getAciklama() {
         return aciklama;
@@ -72,7 +73,7 @@ public class Rezervasyon {
 
     @Override
     public String toString() {
-        return "Rezervasyon{" + "rez nervasyonid=" + rezervasyonid + ", aracid=" + aracid + ", musteriid=" + musteriid + ", aciklama=" + aciklama + ", tarih=" + tarih + '}';
+        return "Rezervasyon{" + "rez nervasyonid=" + rezervasyonid + ", aracid=" + aracid + ", kullaniciid=" + kullaniciid + ", aciklama=" + aciklama + ", tarih=" + tarih + '}';
     }
     
     

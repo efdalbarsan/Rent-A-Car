@@ -40,7 +40,7 @@ public class HasarKaydiController implements Serializable{
     }
 
     public void create() {
-        this.getHasarKaydiDAO().insert(this.hasarKaydi);
+        this.getHasarKaydiDAO().create(this.hasarKaydi);
         clearForm();
     }
 
@@ -56,7 +56,7 @@ public class HasarKaydiController implements Serializable{
     }
 
     public List<HasarKaydi> getHasarKaydiList() {
-        this.hasarKaydiList = this.getHasarKaydiDAO().getHasarKaydi();
+        this.hasarKaydiList = this.getHasarKaydiDAO().read();
         return hasarKaydiList;
     }
 

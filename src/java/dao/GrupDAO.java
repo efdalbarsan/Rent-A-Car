@@ -1,25 +1,22 @@
 package dao;
 
 import entity.Grup;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import util.DBConnection;
 
-public class GrupDAO {
 
-    private DBConnection connection;
-    private Connection c;
+public class GrupDAO extends Dao {
 
-    public List<Grup> getGrup() {
+    @Override
+    public List read() {
         List<Grup> clist = new ArrayList();
 
         try {
-            Statement st = this.getC().createStatement();                    //sorgulari statement uzerinden yapariz
+            Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
             ResultSet rs = st.executeQuery("select * from grup"); //executeQuery veritabanindan veri cekme islemini yapar. 
 
             while (rs.next()) {
@@ -36,10 +33,12 @@ public class GrupDAO {
         return clist;
     }
 
-    public void insert(Grup grup) {
+    @Override
+    public void create(Object obj) {
+        Grup grup = (Grup) obj;
         String q = "insert into grup(grupadi) values (?)";
         try {
-            PreparedStatement st = c.prepareStatement(q);
+            PreparedStatement st = getConn().prepareStatement(q);
             st.setString(1, grup.getGrupadi());
 
             st.executeUpdate();
@@ -49,10 +48,12 @@ public class GrupDAO {
         }
     }
 
-    public void delete(Grup grup) {
+    @Override
+    public void delete(Object obj) {
+        Grup grup = (Grup) obj;
         String q = "delete from grup where grupid = ?";
         try {
-            PreparedStatement st = c.prepareStatement(q);
+            PreparedStatement st = getConn().prepareStatement(q);
             st.setInt(1, grup.getGrupid());
             st.executeUpdate();
 
@@ -60,11 +61,12 @@ public class GrupDAO {
             System.out.println(ex.getMessage());
         }
     }
-
-    public void update(Grup grup) {
+    @Override
+    public void update(Object obj) {
+        Grup grup = (Grup) obj;
         String q = "update grup set grupadi=? where grupid = ?";
         try {
-            PreparedStatement st = c.prepareStatement(q);
+            PreparedStatement st = getConn().prepareStatement(q);
             st.setString(1, grup.getGrupadi());
             st.setInt(2, grup.getGrupid());
 
@@ -73,19 +75,5 @@ public class GrupDAO {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-    }
-
-    public DBConnection getConnection() {
-        if (this.connection == null) {
-            this.connection = new DBConnection();
-        }
-        return connection;
-    }
-
-    public Connection getC() {
-        if (this.c == null) {
-            this.c = new DBConnection().connect();
-        }
-        return c;
     }
 }

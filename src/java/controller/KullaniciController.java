@@ -42,7 +42,7 @@ public class KullaniciController implements Serializable {
     }
 
     public void create() {
-        this.getKullaniciDAO().insert(this.kullanici);
+        this.getKullaniciDAO().create(this.kullanici);
         clearForm();
     }
 
@@ -58,7 +58,7 @@ public class KullaniciController implements Serializable {
     }
 
     public List<Kullanici> getKullaniciList() {
-        this.kullaniciList = this.getKullaniciDAO().getKullanici();
+        this.kullaniciList = this.getKullaniciDAO().read();
         return kullaniciList;
     }
 

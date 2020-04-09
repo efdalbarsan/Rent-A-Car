@@ -45,7 +45,7 @@ public class RezervasyonController implements Serializable {
 
     public void create() {
         this.rezervasyon.setTarih(Date.valueOf(this.rezervasyon.getTempDate()));
-        this.getRezervasyonDAO().insert(this.rezervasyon);
+        this.getRezervasyonDAO().create(this.rezervasyon);
         clearForm();
     }
 
@@ -61,7 +61,7 @@ public class RezervasyonController implements Serializable {
     }
 
     public List<Rezervasyon> getRezervasyonList() {
-        this.rezervasyonList = this.getRezervasyonDAO().getRezervasyon();
+        this.rezervasyonList = this.getRezervasyonDAO().read();
         return rezervasyonList;
     }
 

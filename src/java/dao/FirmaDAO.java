@@ -1,7 +1,6 @@
 package dao;
 
 import entity.Firma;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,18 +8,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import util.DBConnection;
+public class FirmaDAO extends Dao{
 
-public class FirmaDAO {
-
-    private DBConnection connection;
-    private Connection c;
-    
-    public List<Firma> getFirmas() {
+    @Override
+    public List read() {
         List<Firma> firmaList = new ArrayList<>();
 
         try {
-            Statement st = this.getC().createStatement();                    //sorgulari statement uzerinden yapariz
+            Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
             ResultSet rs = st.executeQuery("select * from firma"); //executeQuery veritabanindan veri cekme islemini yapar. 
 
             while (rs.next()) {
@@ -31,7 +26,7 @@ public class FirmaDAO {
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-       }
+        }
         return firmaList;
     }
 
@@ -39,7 +34,7 @@ public class FirmaDAO {
         Firma f = null;
 
         try {
-            Statement st = this.getC().createStatement();    //sorgulari statement uzerinden yapariz
+            Statement st = this.getConn().createStatement();    //sorgulari statement uzerinden yapariz
             ResultSet rs = st.executeQuery("select * from firma where firmaid=" + firmaid); //executeQuery veritabanindan veri cekme islemini yapar. 
             rs.next();
 
@@ -56,10 +51,12 @@ public class FirmaDAO {
         return f;
     }
 
-    public void insert(Firma firma) {
+    @Override
+    public void create(Object obj) {
+        Firma firma = (Firma) obj;
         String q = "insert into firma(adi,telefon,email,adres) values (?,?,?,?)";
         try {
-            PreparedStatement st = this.getC().prepareStatement(q);
+            PreparedStatement st = this.getConn().prepareStatement(q);
             st.setString(1, firma.getAdi());
             st.setString(2, firma.getTelefon());
             st.setString(3, firma.getEmail());
@@ -72,10 +69,13 @@ public class FirmaDAO {
         }
     }
 
-    public void delete(Firma firma) {
+    @Override
+    public void delete(Object obj) {
+        Firma firma = (Firma) obj;
+
         String q = "delete from firma where firmaid = ?";
         try {
-            PreparedStatement st = this.getC().prepareStatement(q);
+            PreparedStatement st = this.getConn().prepareStatement(q);
             st.setInt(1, firma.getFirmaid());
             st.executeUpdate();
 
@@ -84,10 +84,11 @@ public class FirmaDAO {
         }
     }
 
-    public void update(Firma firma) {
+    public void update(Object obj) {
+        Firma firma = (Firma) obj;
         String q = "update firma set adi=?,telefon=?,email=?,adres=? where firmaid = ?";
         try {
-            PreparedStatement st = this.getC().prepareStatement(q);
+            PreparedStatement st = getConn().prepareStatement(q);
             st.setString(1, firma.getAdi());
             st.setString(2, firma.getTelefon());
             st.setString(3, firma.getEmail());
@@ -99,19 +100,4 @@ public class FirmaDAO {
             System.out.println(ex.getMessage());
         }
     }
-
-    public DBConnection getConnection() {
-        if (this.connection == null) {
-            this.connection = new DBConnection();
-        }
-        return connection;
-    }
-
-    public Connection getC() {
-        if (this.c == null) {
-            this.c = new DBConnection().connect();
-        }
-        return c;
-    }
-
 }

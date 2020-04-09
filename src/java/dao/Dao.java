@@ -5,10 +5,34 @@
  */
 package dao;
 
+import java.sql.Connection;
+import java.util.List;
+import util.DBConnection;
+
 /**
  *
  * @author Barsan
  */
-public class Dao {
+public abstract class Dao {
+   private DBConnection db;
+    private Connection conn;
     
+    public abstract void create(Object obj);
+    public abstract List read(); 
+    public abstract void update(Object obj);
+    public abstract void delete(Object obj);
+
+    public DBConnection getDb() {
+        if (db == null) {
+            db = new DBConnection();
+        }
+        return db;
+    }
+
+    public Connection getConn() {
+        if (conn == null) {
+            conn = getDb().connect();
+        }
+        return conn;
+    }   
 }

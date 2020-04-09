@@ -42,7 +42,7 @@ public class YorumController implements Serializable {
     }
 
     public void create() {
-        this.getYorumDAO().insert(this.yorum);
+        this.getYorumDAO().create(this.yorum);
         clearForm();
     }
 
@@ -58,7 +58,7 @@ public class YorumController implements Serializable {
     }
 
     public List<Yorum> getYorumList() {
-        this.yorumList = this.getYorumDAO().getYorum();
+        this.yorumList = this.getYorumDAO().read();
         return yorumList;
     }
 

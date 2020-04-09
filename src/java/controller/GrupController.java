@@ -43,7 +43,7 @@ public class GrupController implements Serializable{
     }
 
     public void create() {
-        this.getGrupDAO().insert(this.grup);
+        this.getGrupDAO().create(this.grup);
         clearForm();
     }
 
@@ -59,7 +59,7 @@ public class GrupController implements Serializable{
     }
 
     public List<Grup> getGrupList() {
-        this.grupList = this.getGrupDAO().getGrup();
+        this.grupList = this.getGrupDAO().read();
         return grupList;
     }
 
