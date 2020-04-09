@@ -24,7 +24,7 @@ public class KullaniciDAO {
 
             while (rs.next()) {
                 Kullanici tmp;
-                tmp = new Kullanici(rs.getInt("kullaniciid"), rs.getString("email"), rs.getString("kullaniciadi"), rs.getString("sifre"), rs.getInt("grupid"));
+                tmp = new Kullanici(rs.getInt("kullaniciid"), rs.getString("email"), rs.getString("kullaniciadi"), rs.getString("sifre"), rs.getInt("grupid"), rs.getString("telefon"), rs.getString("adres"), rs.getInt("aracid"));
 
                 clist.add(tmp);//Her yeni kullanicii listeme ekliyorum
 
@@ -37,13 +37,16 @@ public class KullaniciDAO {
     }
 
     public void insert(Kullanici kullanici) {
-        String q = "insert into kullanici(email,kullaniciadi,sifre,grupid) values (?,?,?,?)";
+        String q = "insert into kullanici(email,kullaniciadi,sifre,grupid,telefon,adres,aracid) values (?,?,?,?,?,?,?)";
         try {
             PreparedStatement st = this.getC().prepareStatement(q);
             st.setString(1, kullanici.getEmail());
             st.setString(2, kullanici.getKullaniciadi());
             st.setString(3, kullanici.getSifre());
             st.setInt(4, kullanici.getGrupid());
+            st.setString(5, kullanici.getTelefon());
+            st.setString(6, kullanici.getAdres());
+            st.setInt(7, kullanici.getAracid());
 
             st.executeUpdate();
 
@@ -65,7 +68,7 @@ public class KullaniciDAO {
     }
 
     public void update(Kullanici kullanici) {
-        String q = "update kullanici set email=?, kullaniciadi=?, sifre=?, grupid=? where kullaniciid = ?";
+        String q = "update kullanici set email=?,kullaniciadi=?,sifre=?,grupid=?,telefon=?,adres=?,aracid=? where kullaniciid = ?";
         System.out.println(kullanici.toString());
         try {
             PreparedStatement st = this.getC().prepareStatement(q);
@@ -73,7 +76,10 @@ public class KullaniciDAO {
             st.setString(2, kullanici.getKullaniciadi());
             st.setString(3, kullanici.getSifre());
             st.setInt(4, kullanici.getGrupid());
-            st.setInt(5, kullanici.getKullaniciid());
+            st.setString(5, kullanici.getTelefon());
+            st.setString(6, kullanici.getAdres());
+            st.setInt(7, kullanici.getAracid());
+            st.setInt(8, kullanici.getKullaniciid());
 
             st.executeUpdate();
 
