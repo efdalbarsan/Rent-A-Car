@@ -11,9 +11,14 @@ import javax.inject.Named;
 @SessionScoped
 public class KullaniciController implements Serializable {
 
-    private Kullanici kullanici;
     private List<Kullanici> kullaniciList;
     private KullaniciDAO kullaniciDAO;
+
+    public KullaniciController() {
+    }
+    
+    
+    private Kullanici kullanici;
 
     public void updateForm(Kullanici kullanici) {
         this.kullanici = kullanici;

@@ -14,6 +14,7 @@ public class Arac {
     private int fiyat;
     private int firmaid;
     private Firma firma;
+    
 
     public Arac() {
     }

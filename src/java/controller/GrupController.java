@@ -11,10 +11,14 @@ import javax.inject.Named;
 @Named
 @SessionScoped
 public class GrupController implements Serializable{
-    
-    private Grup grup;
+
     private List<Grup> grupList;
     private GrupDAO grupDAO;
+
+    public GrupController() {
+    }
+          
+    private Grup grup;
 
     public void updateForm(Grup grup) {
         this.grup = grup;
@@ -77,4 +81,5 @@ public class GrupController implements Serializable{
     public void setGrupDAO(GrupDAO grupDAO) {
         this.grupDAO = grupDAO;
     }
+    
 }

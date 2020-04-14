@@ -1,7 +1,7 @@
 package entity;
 
-
 public class Grup {
+
     private int grupid;
     private String grupadi;
 
@@ -29,10 +29,11 @@ public class Grup {
         this.grupadi = grupadi;
     }
 
+    
     @Override
     public String toString() {
         return "Grup{" + "grupid=" + grupid + ", grupadi=" + grupadi + '}';
     }
-    
-    
+
+
 }

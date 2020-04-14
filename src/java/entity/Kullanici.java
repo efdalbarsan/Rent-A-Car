@@ -9,7 +9,8 @@ public class Kullanici {
     private String telefon;
     private String adres;
     private int aracid;
-
+    private Grup grup;
+    
     public Kullanici() {
     }
 
@@ -23,6 +24,7 @@ public class Kullanici {
         this.adres = adres;
         this.aracid = aracid;
     }
+
 
     public int getKullaniciid() {
         return kullaniciid;
@@ -87,6 +89,15 @@ public class Kullanici {
     public void setAracid(int aracid) {
         this.aracid = aracid;
     }
+
+    public Grup getGrup() {
+        return grup;
+    }
+
+    public void setGrup(Grup grup) {
+        this.grup = grup;
+    }
+    
 
     @Override
     public String toString() {

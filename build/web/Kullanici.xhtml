@@ -52,6 +52,10 @@
                                 </h:commandLink> 
                             </h:column>
                             <h:column>
+                                <f:facet name="header">YETKISI</f:facet>
+                                    #{user.grup.grupadi}
+                            </h:column>
+                            <h:column>
                                 <f:facet name="header">E-MAIL</f:facet>
                                     #{user.email}
                             </h:column>
@@ -62,10 +66,6 @@
                             <h:column>
                                 <f:facet name="header">SIFRE</f:facet>
                                     #{user.sifre}
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">GRUP ID</f:facet>
-                                    #{user.grupid}
                             </h:column>
                             <h:column>
                                 <f:facet name="header">TELEFON</f:facet>

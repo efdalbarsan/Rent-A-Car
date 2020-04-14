@@ -8,9 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class KullaniciDAO extends Dao {
-
+    private GrupDAO grupDAO;
+    
     @Override
     public List read() {
         List<Kullanici> clist = new ArrayList();
@@ -23,6 +23,7 @@ public class KullaniciDAO extends Dao {
                 Kullanici tmp;
                 tmp = new Kullanici(rs.getInt("kullaniciid"), rs.getString("email"), rs.getString("kullaniciadi"), rs.getString("sifre"), rs.getInt("grupid"), rs.getString("telefon"), rs.getString("adres"), rs.getInt("aracid"));
 
+                tmp.setGrup(this.getGrupDAO().find(rs.getInt("grupid")));
                 clist.add(tmp);//Her yeni kullanicii listeme ekliyorum
 
             }
@@ -90,5 +91,13 @@ public class KullaniciDAO extends Dao {
             System.out.println(ex.getMessage());
         }
     }
+
+    public GrupDAO getGrupDAO() {
+        if(grupDAO == null){
+            this.grupDAO = new GrupDAO();
+        }
+        return grupDAO;
+    }
+    
 
 }
