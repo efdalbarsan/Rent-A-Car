@@ -1,6 +1,5 @@
 package dao;
 
-import entity.Firma;
 import entity.Grup;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,7 +32,7 @@ public class GrupDAO extends Dao {
         return clist;
     }
     
-        public Grup find(int grupid) {
+    public Grup find(int grupid) {
         Grup g = null;
 
         try {

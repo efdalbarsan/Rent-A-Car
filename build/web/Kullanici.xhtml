@@ -76,10 +76,6 @@
                                     #{user.adres}
                             </h:column>
                             <h:column>
-                                <f:facet name="header">ARAC ID</f:facet>
-                                    #{user.aracid}
-                            </h:column>
-                            <h:column>
                                 <f:facet name="header">DELETE</f:facet>
                                 <h:commandButton onclick="$('#myModal').modal('show')" styleClass="btn btn-sm btn-danger" action="#{kullaniciController.deleteConfirm(user)}" value ="Delete">
                                     <f:ajax execute="@this" render="delete-modal"/>
@@ -119,11 +115,6 @@
                             <h:inputHidden value ="#{kullaniciController.kullanici.adres}"/>
                             <label for="inputAdres">ADRES</label>
                             <h:inputText styleClass="form-control" value ="#{kullaniciController.kullanici.adres}"/>
-                        </div>
-                        <div class="form-inline">
-                            <h:inputHidden value ="#{kullaniciController.kullanici.aracid}"/>
-                            <label for="inputAracId">ARAC ID</label>
-                            <h:inputText styleClass="form-control" value ="#{kullaniciController.kullanici.aracid}"/>
                         </div>
                         <div class="form-group">
                             <div class="btn-group">

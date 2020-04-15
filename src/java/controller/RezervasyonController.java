@@ -12,9 +12,13 @@ import javax.inject.Named;
 @SessionScoped
 public class RezervasyonController implements Serializable {
 
-    private Rezervasyon rezervasyon;
     private List<Rezervasyon> rezervasyonList;
     private RezervasyonDAO rezervasyonDAO;
+
+    public RezervasyonController() {
+    }
+
+    private Rezervasyon rezervasyon;
 
     public void updateForm(Rezervasyon rezervasyon) {
         this.rezervasyon = rezervasyon;

@@ -1,6 +1,7 @@
 package dao;
 
 import entity.Arac;
+import entity.Grup;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,6 +34,35 @@ public class AracDAO extends Dao {
             System.out.println(ex.getMessage());
         }
         return clist;
+    }
+       public Arac find(int aracid) {
+        Arac a = null;
+
+        try {
+            Statement st = this.getConn().createStatement();    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery("select * from arac where aracid=" + aracid); //executeQuery veritabanindan veri cekme islemini yapar. 
+            rs.next();
+
+            a = new Arac();
+            a.setAracid(rs.getInt("aracid"));
+            a.setPlaka(rs.getString("plaka"));
+            a.setMarka(rs.getString("marka"));
+            a.setModel(rs.getString("model"));
+            a.setMotor(rs.getDouble("motor"));
+            a.setYil(rs.getInt("yil"));
+            a.setKilometre(rs.getInt("kilometre"));
+            a.setYakit(rs.getString("yakit"));
+            a.setYakit(rs.getString("vites"));
+            a.setFiyat(rs.getInt("Fiyat"));
+            a.setFirmaid(rs.getInt("firmaid"));
+            
+
+
+
+        } catch (SQLException ex) {
+            System.out.println("ex.getMessage");
+        }
+        return a;
     }
 
     @Override

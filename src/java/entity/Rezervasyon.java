@@ -9,6 +9,8 @@ public class Rezervasyon {
     private String aciklama;
     private Date tarih;
     private String tempDate;
+    private Kullanici kullanici;
+    private Arac arac;
 
     public Rezervasyon() {
     }
@@ -71,10 +73,32 @@ public class Rezervasyon {
         this.tarih = tarih;
     }
 
+    public Kullanici getKullanici() {
+        return kullanici;
+    }
+
+    public void setKullanici(Kullanici kullanici) {
+        this.kullanici = kullanici;
+    }
+
+    public Arac getArac() {
+        return arac;
+    }
+
+    public void setArac(Arac arac) {
+        this.arac = arac;
+    }
+
     @Override
     public String toString() {
-        return "Rezervasyon{" + "rez nervasyonid=" + rezervasyonid + ", aracid=" + aracid + ", kullaniciid=" + kullaniciid + ", aciklama=" + aciklama + ", tarih=" + tarih + '}';
+        return "Rezervasyon{" + "rezervasyonid=" + rezervasyonid + ", aracid=" + aracid + ", kullaniciid=" + kullaniciid + ", aciklama=" + aciklama + ", tarih=" + tarih + ", tempDate=" + tempDate + ", kullanici=" + kullanici + ", arac=" + arac + '}';
     }
+    
+
+  
+    
+
+
     
     
 }

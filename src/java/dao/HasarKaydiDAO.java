@@ -10,7 +10,8 @@ import java.util.List;
 
 
 public class HasarKaydiDAO extends Dao {
-
+    private AracDAO aracDAO;
+    
     @Override
     public List read() {
         List<HasarKaydi> clist = new ArrayList();
@@ -22,7 +23,8 @@ public class HasarKaydiDAO extends Dao {
             while (rs.next()) {
                 HasarKaydi tmp;
                 tmp = new HasarKaydi(rs.getInt("hasarid"), rs.getInt("aracid"), rs.getString("boya"), rs.getString("cizik"), rs.getString("degisim"), rs.getString("aciklama"));
-
+                
+                tmp.setArac(this.getAracDAO().find(rs.getInt("aracid")));
                 clist.add(tmp);//Her yeni hasarKaydii listeme ekliyorum
 
             }
@@ -85,4 +87,12 @@ public class HasarKaydiDAO extends Dao {
             System.out.println(ex.getMessage());
         }
     }
+
+    public AracDAO getAracDAO() {
+        if(aracDAO == null){
+            aracDAO = new AracDAO();
+        }
+        return aracDAO;
+    }
+    
 }

@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RezervasyonDAO extends Dao{
-
+    private KullaniciDAO kullaniciDAO;
+    private AracDAO aracDAO;
+    
     @Override
     public List read() {
         List<Rezervasyon> clist = new ArrayList();
@@ -23,6 +25,9 @@ public class RezervasyonDAO extends Dao{
                 Rezervasyon tmp;
                 tmp = new Rezervasyon(rs.getInt("rezervasyonid"), rs.getInt("aracid"), rs.getInt("kullaniciid"), rs.getString("aciklama"), rs.getDate("tarih"));
                 tmp.setTempDate(String.valueOf(tmp.getTarih()));
+                
+                tmp.setArac(this.getAracDAO().find(rs.getInt("aracid")));
+                tmp.setKullanici(this.getKullaniciDAO().find(rs.getInt("kullaniciid")));
                 clist.add(tmp);//Her yeni rezervasyoni listeme ekliyorum
 
             }
@@ -84,4 +89,20 @@ public class RezervasyonDAO extends Dao{
             System.out.println(ex.getMessage());
         }
     }
+
+    public KullaniciDAO getKullaniciDAO() {
+        if(kullaniciDAO == null){
+            kullaniciDAO = new KullaniciDAO();
+        }
+        return kullaniciDAO;
+    }
+
+    public AracDAO getAracDAO() {
+        if(aracDAO == null){
+            aracDAO = new AracDAO();
+        }
+        return aracDAO;
+    }
+    
+    
 }

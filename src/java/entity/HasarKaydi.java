@@ -8,6 +8,7 @@ public class HasarKaydi {
     private String cizik;
     private String degisim;
     private String aciklama;
+    private Arac arac;
 
     public HasarKaydi() {
     }
@@ -69,12 +70,19 @@ public class HasarKaydi {
         this.aciklama = aciklama;
     }
 
-    @Override
-    public String toString() {
-        return "HasarKaydi{" + "hasarid=" + hasarid + ", aracid=" + aracid + ", boya=" + boya + ", cizik=" + cizik + ", degisim=" + degisim + ", aciklama=" + aciklama + '}';
+    public Arac getArac() {
+        return arac;
     }
 
+    public void setArac(Arac arac) {
+        this.arac = arac;
+    }
 
+    @Override
+    public String toString() {
+        return "HasarKaydi{" + "hasarid=" + hasarid + ", aracid=" + aracid + ", boya=" + boya + ", cizik=" + cizik + ", degisim=" + degisim + ", aciklama=" + aciklama + ", arac=" + arac + '}';
+    }
+    
 
 
 }

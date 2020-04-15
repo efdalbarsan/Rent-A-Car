@@ -1,10 +1,13 @@
 package entity;
 
 public class Yorum {
+
     private int yorumid;
     private int kullaniciid;
     private int aracid;
     private String yorum;
+    private Kullanici kullanici;
+    private Arac arac;
 
     public Yorum() {
     }
@@ -48,11 +51,27 @@ public class Yorum {
         this.yorum = yorum;
     }
 
-    @Override
-    public String toString() {
-        return "Yorum{" + "yorumid=" + yorumid + ", kullaniciid=" + kullaniciid + ", aracid=" + aracid + ", yorum=" + yorum + '}';
+    public Kullanici getKullanici() {
+        return kullanici;
     }
 
-   
-    
+    public void setKullanici(Kullanici kullanici) {
+        this.kullanici = kullanici;
+    }
+
+    public Arac getArac() {
+        return arac;
+    }
+
+    public void setArac(Arac arac) {
+        this.arac = arac;
+    }
+
+    @Override
+    public String toString() {
+        return "Yorum{" + "yorumid=" + yorumid + ", kullaniciid=" + kullaniciid + ", aracid=" + aracid + ", yorum=" + yorum + ", kullanici=" + kullanici + ", arac=" + arac + '}';
+    }
+
+
+
 }

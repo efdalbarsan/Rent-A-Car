@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class YorumDAO extends Dao {
-
+    private KullaniciDAO kullaniciDAO;
+    private AracDAO aracDAO;
+    
     @Override
     public List read() {
         List<Yorum> clist = new ArrayList();
@@ -22,6 +24,8 @@ public class YorumDAO extends Dao {
                 Yorum tmp;
                 tmp = new Yorum(rs.getInt("yorumid"), rs.getInt("kullaniciid"), rs.getInt("aracid"), rs.getString("yorum"));
 
+                tmp.setKullanici(this.getKullaniciDAO().find(rs.getInt("kullaniciid")));
+                tmp.setArac(this.getAracDAO().find(rs.getInt("aracid")));
                 clist.add(tmp);//Her yeni yorumi listeme ekliyorum
 
             }
@@ -80,4 +84,20 @@ public class YorumDAO extends Dao {
             System.out.println(ex.getMessage());
         }
     }
+
+    public KullaniciDAO getKullaniciDAO() {
+        if(kullaniciDAO == null){
+            this.kullaniciDAO = new KullaniciDAO();
+        }
+        return kullaniciDAO;
+    }
+
+    public AracDAO getAracDAO() {
+        if(aracDAO == null){
+            this.aracDAO = new AracDAO();
+        }
+        return aracDAO;
+    }
+    
+    
 }

@@ -11,9 +11,13 @@ import javax.inject.Named;
 @SessionScoped
 public class YorumController implements Serializable {
 
-    private Yorum yorum;
     private List<Yorum> yorumList;
     private YorumDAO yorumDAO;
+
+    public YorumController() {
+    }
+      
+    private Yorum yorum;
 
     public void updateForm(Yorum yorum) {
         this.yorum = yorum;

@@ -10,10 +10,13 @@ import javax.inject.Named;
 @Named
 @SessionScoped
 public class HasarKaydiController implements Serializable{
-    private HasarKaydi hasarKaydi;
+    
     private List<HasarKaydi> hasarKaydiList;
     private HasarKaydiDAO hasarKaydiDAO;
-    
+
+    public HasarKaydiController() {
+    }
+    private HasarKaydi hasarKaydi;
    public void updateForm(HasarKaydi hasarKaydi) {
         this.hasarKaydi = hasarKaydi;
     }
