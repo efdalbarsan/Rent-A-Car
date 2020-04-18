@@ -1,6 +1,8 @@
 package controller;
 
+import dao.GrupDAO;
 import dao.KullaniciDAO;
+import entity.Grup;
 import entity.Kullanici;
 import java.io.Serializable;
 import java.util.List;
@@ -13,6 +15,10 @@ public class KullaniciController implements Serializable {
 
     private List<Kullanici> kullaniciList;
     private KullaniciDAO kullaniciDAO;
+    private Long GrupSec;
+    private GrupDAO grupDAO;
+    private List<Grup> grupList;
+    
 
     public KullaniciController() {
     }
@@ -21,6 +27,7 @@ public class KullaniciController implements Serializable {
     private Kullanici kullanici;
 
     public void updateForm(Kullanici kullanici) {
+        this.GrupSec =new Long(kullanici.getGrupid());
         this.kullanici = kullanici;
     }
 
@@ -43,10 +50,12 @@ public class KullaniciController implements Serializable {
     }
 
     public void modify() {
+        this.kullanici.setGrupid(GrupSec.intValue());
         this.getKullaniciDAO().update(this.kullanici);
     }
 
     public void create() {
+        this.kullanici.setGrupid(GrupSec.intValue());
         this.getKullaniciDAO().create(this.kullanici);
         clearForm();
     }
@@ -80,5 +89,29 @@ public class KullaniciController implements Serializable {
 
     public void setKullaniciDAO(KullaniciDAO kullaniciDAO) {
         this.kullaniciDAO = kullaniciDAO;
+    }
+
+    public Long getGrupSec() {
+        return GrupSec;
+    }
+
+    public void setGrupSec(Long GrupSec) {
+        this.GrupSec = GrupSec;
+    }
+
+    public GrupDAO getGrupDAO() {
+        if(this.grupDAO == null){
+            this.grupDAO = new GrupDAO();
+        }
+        return grupDAO;
+    }
+
+    public List<Grup> getGrupList() {
+        this.grupList = this.getGrupDAO().read();
+        return grupList;
+    }
+
+    public void setGrupList(List<Grup> grupList) {
+        this.grupList = grupList;
     }
 }

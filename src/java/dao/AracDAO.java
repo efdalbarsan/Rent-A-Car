@@ -1,7 +1,6 @@
 package dao;
 
 import entity.Arac;
-import entity.Grup;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -67,7 +66,7 @@ public class AracDAO extends Dao {
 
     @Override
     public void create(Object obj) {
-        Arac arac = (Arac) obj;
+        Arac arac = (Arac) obj;       
         String q = "insert into arac(plaka,marka,model,motor,yil,kilometre,yakit,vites,firmaid,fiyat) values (?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement st = getConn().prepareStatement(q);
@@ -133,5 +132,4 @@ public class AracDAO extends Dao {
         }
         return firmaDAO;
     }
-
 }

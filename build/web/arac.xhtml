@@ -141,8 +141,10 @@
                             <h:inputText styleClass="form-control" value ="#{aracController.arac.fiyat}"/>
                         </div>
                         <div class="form-inline">
-                            <label for="inputFirmaId">Firma İd </label>
-                            <h:inputText styleClass="form-control" value ="#{aracController.arac.firmaid}"/>
+                            <label for="inputFirmaId">Firma Adı</label>
+                            <h:selectOneMenu styleClass="custom-select" id ="FirmaSec" value="#{aracController.firmaSec}">
+                                <f:selectItems value="#{aracController.firmaList}" var="firma" itemValue="#{firma.firmaid}" itemLabel="#{firma.adi}"/>
+                            </h:selectOneMenu> 
                         </div>
                         <div class="form-group">
                             <div class="btn-group">

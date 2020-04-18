@@ -1,6 +1,10 @@
 package controller;
 
+import dao.AracDAO;
+import dao.KullaniciDAO;
 import dao.YorumDAO;
+import entity.Arac;
+import entity.Kullanici;
 import entity.Yorum;
 import java.io.Serializable;
 import java.util.List;
@@ -13,6 +17,12 @@ public class YorumController implements Serializable {
 
     private List<Yorum> yorumList;
     private YorumDAO yorumDAO;
+    private Long AracSec;
+    private Long KullaniciSec;
+    private AracDAO aracDAO;
+    private KullaniciDAO kullaniciDAO;
+    private List<Arac> aracList;
+    private List<Kullanici> kullaniciList;
 
     public YorumController() {
     }
@@ -20,6 +30,8 @@ public class YorumController implements Serializable {
     private Yorum yorum;
 
     public void updateForm(Yorum yorum) {
+        this.AracSec =new Long(yorum.getAracid());
+        this.KullaniciSec =new Long(yorum.getKullaniciid());
         this.yorum = yorum;
     }
 
@@ -42,10 +54,14 @@ public class YorumController implements Serializable {
     }
 
     public void modify() {
+        this.yorum.setAracid(AracSec.intValue());
+        this.yorum.setKullaniciid(KullaniciSec.intValue());
         this.getYorumDAO().update(this.yorum);
     }
 
     public void create() {
+        this.yorum.setKullaniciid(KullaniciSec.intValue());
+        this.yorum.setAracid(AracSec.intValue());       
         this.getYorumDAO().create(this.yorum);
         clearForm();
     }
@@ -80,4 +96,53 @@ public class YorumController implements Serializable {
     public void setYorumDAO(YorumDAO yorumDAO) {
         this.yorumDAO = yorumDAO;
     }
+    public Long getAracSec() {
+        return AracSec;
+    }
+
+    public void setAracSec(Long AracSec) {
+        this.AracSec = AracSec;
+    }
+
+    public Long getKullaniciSec() {
+        return KullaniciSec;
+    }
+
+    public void setKullaniciSec(Long KullaniciSec) {
+        this.KullaniciSec = KullaniciSec;
+    }
+
+    public AracDAO getAracDAO() {
+        if(this.aracDAO == null){
+            this.aracDAO = new AracDAO();
+        }
+        return aracDAO;
+    }
+
+    public KullaniciDAO getKullaniciDAO() {
+            if(this.kullaniciDAO == null){
+                kullaniciDAO = new KullaniciDAO();
+            }
+        return kullaniciDAO;
+    }
+
+    public List<Arac> getAracList() {
+        this.aracList = this.getAracDAO().read();
+        return aracList;
+    }
+
+    public void setAracList(List<Arac> aracList) {
+        this.aracList = aracList;
+    }
+
+    public List<Kullanici> getKullaniciList() {
+        this.kullaniciList = this.getKullaniciDAO().read();
+        return kullaniciList;
+    }
+
+    public void setKullaniciList(List<Kullanici> kullaniciList) {
+        this.kullaniciList = kullaniciList;
+    }
+    
+    
 }

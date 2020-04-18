@@ -84,12 +84,16 @@
                     <h:form id="rezervasyon-form">
                         <div class="form-inline">
                             <h:inputHidden value="#{rezervasyonController.rezervasyon.rezervasyonid}"/>
-                            <label for="inputaracid">ARAC ID</label>
-                            <h:inputText styleClass="form-control" value="#{rezervasyonController.rezervasyon.aracid}"/>
+                            <label for="inputAracId">ARAC PLAKA</label>
+                            <h:selectOneMenu styleClass="custom-select" id ="aracSec" value="#{rezervasyonController.aracSec}">
+                                <f:selectItems value="#{rezervasyonController.aracList}" var="arac" itemValue="#{arac.aracid}" itemLabel="#{arac.plaka}"/>
+                            </h:selectOneMenu> 
                         </div>
                         <div class="form-inline">
-                            <label for="inputmuteriid">KULLANICI ID</label>
-                            <h:inputText styleClass="form-control" value="#{rezervasyonController.rezervasyon.kullaniciid}"/>
+                            <label for="inputKullaniciId">KULLANICI ADI</label>                           
+                            <h:selectOneMenu styleClass="custom-select" id ="KullaniciSec" value="#{rezervasyonController.kullaniciSec}">
+                                <f:selectItems value="#{rezervasyonController.kullaniciList}" var="kullanici" itemValue="#{kullanici.kullaniciid}" itemLabel="#{kullanici.kullaniciadi}"/>
+                            </h:selectOneMenu> 
                         </div>
                         <div class="form-inline">
                             <label for="inputaciklama">ACIKLAMA</label>

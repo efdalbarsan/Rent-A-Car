@@ -44,7 +44,8 @@ public class KullaniciDAO extends Dao {
             k = new Kullanici();
             k.setKullaniciid(rs.getInt("kullaniciid"));
             k.setEmail(rs.getString("email"));
-            k.setKullaniciadi(rs.getString("sifre"));
+            k.setKullaniciadi(rs.getString("kullaniciadi"));
+            k.setSifre(rs.getString("sifre"));
             k.setGrupid(rs.getInt("grupid"));
             k.setTelefon(rs.getString("telefon"));
             k.setAdres(rs.getString("adres"));

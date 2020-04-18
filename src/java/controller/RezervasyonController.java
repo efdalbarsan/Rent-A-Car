@@ -1,6 +1,10 @@
 package controller;
 
+import dao.AracDAO;
+import dao.KullaniciDAO;
 import dao.RezervasyonDAO;
+import entity.Arac;
+import entity.Kullanici;
 import entity.Rezervasyon;
 import java.io.Serializable;
 import java.sql.Date;
@@ -14,13 +18,21 @@ public class RezervasyonController implements Serializable {
 
     private List<Rezervasyon> rezervasyonList;
     private RezervasyonDAO rezervasyonDAO;
-
+    private Long AracSec;
+    private Long KullaniciSec;
+    private AracDAO aracDAO;
+    private KullaniciDAO kullaniciDAO;
+    private List<Arac> aracList;
+    private List<Kullanici> kullaniciList;
+   
     public RezervasyonController() {
     }
 
     private Rezervasyon rezervasyon;
 
     public void updateForm(Rezervasyon rezervasyon) {
+        this.AracSec =new Long(rezervasyon.getAracid());
+        this.KullaniciSec =new Long(rezervasyon.getKullaniciid());
         this.rezervasyon = rezervasyon;
     }
 
@@ -43,11 +55,15 @@ public class RezervasyonController implements Serializable {
     }
 
     public void modify() {
+        this.rezervasyon.setAracid(AracSec.intValue());
+        this.rezervasyon.setKullaniciid(KullaniciSec.intValue());
         this.rezervasyon.setTarih(Date.valueOf(this.rezervasyon.getTempDate()));
         this.getRezervasyonDAO().update(this.rezervasyon);
     }
 
     public void create() {
+        this.rezervasyon.setAracid(AracSec.intValue());
+        this.rezervasyon.setKullaniciid(KullaniciSec.intValue());
         this.rezervasyon.setTarih(Date.valueOf(this.rezervasyon.getTempDate()));
         this.getRezervasyonDAO().create(this.rezervasyon);
         clearForm();
@@ -84,4 +100,53 @@ public class RezervasyonController implements Serializable {
         this.rezervasyonDAO = rezervasyonDAO;
     }
 
+    public Long getAracSec() {
+        return AracSec;
+    }
+
+    public void setAracSec(Long AracSec) {
+        this.AracSec = AracSec;
+    }
+
+    public Long getKullaniciSec() {
+        return KullaniciSec;
+    }
+
+    public void setKullaniciSec(Long KullaniciSec) {
+        this.KullaniciSec = KullaniciSec;
+    }
+
+    public AracDAO getAracDAO() {
+        if(this.aracDAO == null){
+            this.aracDAO = new AracDAO();
+        }
+        return aracDAO;
+    }
+
+    public KullaniciDAO getKullaniciDAO() {
+            if(this.kullaniciDAO == null){
+                kullaniciDAO = new KullaniciDAO();
+            }
+        return kullaniciDAO;
+    }
+
+    public List<Arac> getAracList() {
+        this.aracList = this.getAracDAO().read();
+        return aracList;
+    }
+
+    public void setAracList(List<Arac> aracList) {
+        this.aracList = aracList;
+    }
+
+    public List<Kullanici> getKullaniciList() {
+        this.kullaniciList = this.getKullaniciDAO().read();
+        return kullaniciList;
+    }
+
+    public void setKullaniciList(List<Kullanici> kullaniciList) {
+        this.kullaniciList = kullaniciList;
+    }
+    
+    
 }

@@ -91,11 +91,13 @@
                 <div class="col-md-1">
                     <h:form id="hasarKaydi-form">
                         <div class="form-inline">
-                            <h:inputHidden value="#{hasarKaydiController.hasarKaydi.hasarid}"/>
-                            <label for="inputaracid">ARAC ID</label>
-                            <h:inputText styleClass="form-control" value="#{hasarKaydiController.hasarKaydi.aracid}"/>
-                        </div>
-                        <div class="form-inline">
+                            <div class="form-inline">
+                                <label for="inputaracplaka">ARAC PLAKA</label>
+                                <h:inputHidden value="#{hasarKaydiController.hasarKaydi.hasarid}"/>
+                                <h:selectOneMenu styleClass="custom-select" id="aracSec" value="#{hasarKaydiController.aracSec}">
+                                    <f:selectItems value="#{hasarKaydiController.aracList}" var="arac" itemValue="#{arac.aracid}" itemLabel="#{arac.plaka}"/>
+                                </h:selectOneMenu>
+                            </div>
                             <label for="inputboya">BOYA</label>
                             <h:inputText styleClass="form-control" value="#{hasarKaydiController.hasarKaydi.boya}"/>
                         </div>
@@ -111,6 +113,7 @@
                             <label for="inputaciklama">ACIKLAMA</label>
                             <h:inputText styleClass="form-control" value="#{hasarKaydiController.hasarKaydi.aciklama}"/>
                         </div>
+
                         <div class="form-group">
                             <div class="btn-group">
                                 <h:commandButton rendered="#{hasarKaydiController.hasarKaydi.boya == null}" styleClass="btn btn-primary" value="Create" action="#{hasarKaydiController.create}">
