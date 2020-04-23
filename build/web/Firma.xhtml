@@ -44,6 +44,10 @@
             <div class="row">
                 <div class="col-md-11">
                     <h:form id="firma-table">
+                        <div class="btn-group">
+                            <h:commandButton action="#{firmaController.previous()}" value="Previous" styleClass="btn btn-outline-dark"/>
+                            <h:commandButton action="#{firmaController.next()}" value="Next" styleClass="btn btn-outline-dark"/>
+                        </div>
                         <h:dataTable styleClass="table table-striped table-hover" value="#{firmaController.clist}" var="firm">
                             <h:column>
                                 <f:facet name="header">ID</f:facet>

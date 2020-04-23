@@ -23,15 +23,59 @@ public class YorumController implements Serializable {
     private KullaniciDAO kullaniciDAO;
     private List<Arac> aracList;
     private List<Kullanici> kullaniciList;
+    private int page = 1;
+    private int pageSize = 5;
+    private int pageCount;
+
+    public void next() {
+        if (this.page == this.getPageCount()) {
+            this.page = 1;
+        } else {
+            this.page++;
+        }
+    }
+
+    public void previous() {
+        if (this.page == 1) {
+            this.page = this.getPageCount();
+        } else {
+            this.page--;
+        }
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public int getPageCount() {
+        this.pageCount = (int) Math.ceil(this.getYorumDAO().count() / (double) pageSize);
+        return pageCount;
+    }
+
+    public void setPageCount(int pageCount) {
+        this.pageCount = pageCount;
+    }
 
     public YorumController() {
     }
-      
+
     private Yorum yorum;
 
     public void updateForm(Yorum yorum) {
-        this.AracSec =new Long(yorum.getAracid());
-        this.KullaniciSec =new Long(yorum.getKullaniciid());
+        this.AracSec = new Long(yorum.getAracid());
+        this.KullaniciSec = new Long(yorum.getKullaniciid());
         this.yorum = yorum;
     }
 
@@ -61,7 +105,7 @@ public class YorumController implements Serializable {
 
     public void create() {
         this.yorum.setKullaniciid(KullaniciSec.intValue());
-        this.yorum.setAracid(AracSec.intValue());       
+        this.yorum.setAracid(AracSec.intValue());
         this.getYorumDAO().create(this.yorum);
         clearForm();
     }
@@ -78,7 +122,7 @@ public class YorumController implements Serializable {
     }
 
     public List<Yorum> getYorumList() {
-        this.yorumList = this.getYorumDAO().read();
+        this.yorumList = this.getYorumDAO().read(page, pageSize);
         return yorumList;
     }
 
@@ -96,6 +140,7 @@ public class YorumController implements Serializable {
     public void setYorumDAO(YorumDAO yorumDAO) {
         this.yorumDAO = yorumDAO;
     }
+
     public Long getAracSec() {
         return AracSec;
     }
@@ -113,21 +158,21 @@ public class YorumController implements Serializable {
     }
 
     public AracDAO getAracDAO() {
-        if(this.aracDAO == null){
+        if (this.aracDAO == null) {
             this.aracDAO = new AracDAO();
         }
         return aracDAO;
     }
 
     public KullaniciDAO getKullaniciDAO() {
-            if(this.kullaniciDAO == null){
-                kullaniciDAO = new KullaniciDAO();
-            }
+        if (this.kullaniciDAO == null) {
+            kullaniciDAO = new KullaniciDAO();
+        }
         return kullaniciDAO;
     }
 
     public List<Arac> getAracList() {
-        this.aracList = this.getAracDAO().read();
+        this.aracList = this.getAracDAO().read(page, pageSize);
         return aracList;
     }
 
@@ -136,13 +181,12 @@ public class YorumController implements Serializable {
     }
 
     public List<Kullanici> getKullaniciList() {
-        this.kullaniciList = this.getKullaniciDAO().read();
+        this.kullaniciList = this.getKullaniciDAO().read(page, pageSize);
         return kullaniciList;
     }
 
     public void setKullaniciList(List<Kullanici> kullaniciList) {
         this.kullaniciList = kullaniciList;
     }
-    
-    
+
 }

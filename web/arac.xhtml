@@ -44,6 +44,11 @@
             <div class ="row">
                 <div class ="col-md-11">
                     <h:form id="arac-table">
+                        <pre>Page #{aracController.page} of #{aracController.pageCount}</pre>
+                        <div class="btn-group">
+                            <h:commandButton action="#{aracController.previous()}" value="Previous" styleClass="btn btn-outline-dark"/>
+                            <h:commandButton action="#{aracController.next()}" value="Next" styleClass="btn btn-outline-dark"/>
+                        </div>
                         <h:dataTable value="#{aracController.clist}" var="ar" styleClass="table table-borderless table-striped">
                             <h:column>
                                 <f:facet name="header">ARAC ID</f:facet>

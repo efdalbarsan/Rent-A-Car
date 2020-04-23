@@ -18,7 +18,7 @@ public abstract class Dao {
     private Connection conn;
     
     public abstract void create(Object obj);
-    public abstract List read(); 
+//    public abstract List read(); 
     public abstract void update(Object obj);
     public abstract void delete(Object obj);
 

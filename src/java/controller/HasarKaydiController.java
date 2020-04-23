@@ -18,6 +18,48 @@ public class HasarKaydiController implements Serializable {
     private Long aracSec;
     private AracDAO aracDAO;
     private List<Arac> aracList;
+     private int page = 1;
+    private int pageSize = 5;
+    private int pageCount;
+
+    public void next() {
+       if(this.page == this.getPageCount()){
+        this.page = 1;
+       }else
+           this.page++;
+    }
+
+    public void previous() {
+        if (this.page == 1) {
+            this.page = this.getPageCount();
+        }else 
+            this.page--;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public int getPageCount() {
+        this.pageCount = (int) Math.ceil(this.getHasarKaydiDAO().count() / (double) pageSize);
+        return pageCount;
+    }
+
+    public void setPageCount(int pageCount) {
+        this.pageCount = pageCount;
+    }
 
     public HasarKaydiController() {
     }
@@ -69,7 +111,7 @@ public class HasarKaydiController implements Serializable {
     }
 
     public List<HasarKaydi> getHasarKaydiList() {
-        this.hasarKaydiList = this.getHasarKaydiDAO().read();
+        this.hasarKaydiList = this.getHasarKaydiDAO().read(page, pageSize);
         return hasarKaydiList;
     }
 
@@ -104,7 +146,7 @@ public class HasarKaydiController implements Serializable {
     }
 
     public List<Arac> getAracList() {
-        this.aracList = this.getAracDAO().read();
+        this.aracList = this.getAracDAO().read(page, pageSize);
         return aracList;
     }
 

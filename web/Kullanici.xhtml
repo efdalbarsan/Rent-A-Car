@@ -44,6 +44,11 @@
             <div class="row">
                 <div class="col-md-11">
                     <h:form id="kullanici-table">
+                        <pre>Page #{kullaniciController.page} of #{kullaniciController.pageCount}</pre>
+                        <div class="btn-group">
+                            <h:commandButton action="#{kullaniciController.previous()}" value="Previous" styleClass="btn btn-outline-dark"/>
+                            <h:commandButton action="#{kullaniciController.next()}" value="Next" styleClass="btn btn-outline-dark"/>
+                        </div>
                         <h:dataTable styleClass="table table-striped table-hover" value="#{kullaniciController.kullaniciList}" var="user">
                             <h:column>
                                 <f:facet name="header">ID</f:facet>

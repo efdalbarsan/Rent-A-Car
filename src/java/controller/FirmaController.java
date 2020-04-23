@@ -13,6 +13,50 @@ public class FirmaController implements Serializable {
 
     private List<Firma> clist;
     private FirmaDAO firmaDAO;
+    private int page = 1;
+    private int pageSize = 5;
+    private int pageCount;
+
+    public void next() {
+        if (this.page == this.getPageCount()) {
+            this.page = 1;
+        } else {
+            this.page++;
+        }
+    }
+
+    public void previous() {
+        if (this.page == 1) {
+            this.page = this.getPageCount();
+        } else {
+            this.page--;
+        }
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public int getPageCount() {
+        this.pageCount = (int) Math.ceil(this.getFirmaDAO().count() / (double) pageSize);
+        return pageCount;
+    }
+
+    public void setPageCount(int pageCount) {
+        this.pageCount = pageCount;
+    }
 
     public FirmaController() {
     }
@@ -51,7 +95,7 @@ public class FirmaController implements Serializable {
     }
 
     public List<Firma> getClist() {
-        this.clist = this.getFirmaDAO().read();
+        this.clist = this.getFirmaDAO().read(page, pageSize);
         return this.clist;
     }
 
@@ -80,5 +124,7 @@ public class FirmaController implements Serializable {
     public void setFirma(Firma firma) {
         this.firma = firma;
     }
+
+
 
 }

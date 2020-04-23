@@ -9,15 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KullaniciDAO extends Dao {
-    private GrupDAO grupDAO;
-    
-    @Override
-    public List read() {
-        List<Kullanici> clist = new ArrayList();
 
+    private GrupDAO grupDAO;
+
+    public List read(int page, int pageSize) {
+        List<Kullanici> clist = new ArrayList();
+        int start = (page - 1) * pageSize;
         try {
             Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery("select * from kullanici"); //executeQuery veritabanindan veri cekme islemini yapar. 
+            ResultSet rs = st.executeQuery("select * from kullanici order by kullaniciid asc limit " + pageSize + " offset " + start); //executeQuery veritabanindan veri cekme islemini yapar. 
 
             while (rs.next()) {
                 Kullanici tmp;
@@ -33,7 +33,22 @@ public class KullaniciDAO extends Dao {
         }
         return clist;
     }
-        public Kullanici find(int kullaniciid) {
+
+    public int count() {
+        int count = 0;
+
+        try {
+            PreparedStatement st = getConn().prepareStatement("select count(kullaniciid) as kullanici_count from kullanici");
+            ResultSet rs = st.executeQuery();
+            rs.next();
+            count = rs.getInt("kullanici_count");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return count;
+    }
+
+    public Kullanici find(int kullaniciid) {
         Kullanici k = null;
 
         try {
@@ -49,7 +64,6 @@ public class KullaniciDAO extends Dao {
             k.setGrupid(rs.getInt("grupid"));
             k.setTelefon(rs.getString("telefon"));
             k.setAdres(rs.getString("adres"));
-
 
         } catch (SQLException ex) {
             System.out.println("ex.getMessage");
@@ -114,11 +128,10 @@ public class KullaniciDAO extends Dao {
     }
 
     public GrupDAO getGrupDAO() {
-        if(grupDAO == null){
+        if (grupDAO == null) {
             this.grupDAO = new GrupDAO();
         }
         return grupDAO;
     }
-    
 
 }

@@ -12,29 +12,44 @@ public class AracDAO extends Dao {
 
     private FirmaDAO firmaDAO;
 
-    @Override
-    public List read() {
+    public List read(int page, int pageSize) {
         List<Arac> clist = new ArrayList();
 
+        int start = (page - 1) * pageSize;
         try {
             Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery("select * from arac"); //executeQuery veritabanindan veri cekme islemini yapar. 
+            ResultSet rs = st.executeQuery("select * from arac order by aracid asc limit " + pageSize + " offset " + start); //executeQuery veritabanindan veri cekme islemini yapar. 
 
             while (rs.next()) {
                 Arac tmp;
                 tmp = new Arac(rs.getInt("aracid"), rs.getString("plaka"), rs.getString("marka"), rs.getString("model"), rs.getDouble("motor"), rs.getInt("yil"), rs.getInt("kilometre"), rs.getString("yakit"), rs.getString("vites"), rs.getInt("fiyat"), rs.getInt("firmaid"));
 
                 tmp.setFirma(this.getFirmaDAO().find(rs.getInt("firmaid")));
-                clist.add(tmp);//Her yeni araci listeme ekliyorum
-
+                clist.add(tmp);
             }
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+
         return clist;
     }
-       public Arac find(int aracid) {
+
+    public int count() {
+        int count = 0;
+
+        try {
+            PreparedStatement st = getConn().prepareStatement("select count(aracid) as arac_count from arac");
+            ResultSet rs = st.executeQuery();
+            rs.next();
+            count = rs.getInt("arac_count");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return count;
+    }
+
+    public Arac find(int aracid) {
         Arac a = null;
 
         try {
@@ -54,9 +69,6 @@ public class AracDAO extends Dao {
             a.setYakit(rs.getString("vites"));
             a.setFiyat(rs.getInt("Fiyat"));
             a.setFirmaid(rs.getInt("firmaid"));
-            
-
-
 
         } catch (SQLException ex) {
             System.out.println("ex.getMessage");
@@ -66,7 +78,7 @@ public class AracDAO extends Dao {
 
     @Override
     public void create(Object obj) {
-        Arac arac = (Arac) obj;       
+        Arac arac = (Arac) obj;
         String q = "insert into arac(plaka,marka,model,motor,yil,kilometre,yakit,vites,firmaid,fiyat) values (?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement st = getConn().prepareStatement(q);

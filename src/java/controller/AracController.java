@@ -19,13 +19,56 @@ public class AracController implements Serializable {
     private Long FirmaSec;
     private List<Firma> firmaList;
 
+    private int page = 1;
+    private int pageSize = 5;
+    private int pageCount;
+
+    public void next() {
+       if(this.page == this.getPageCount()){
+        this.page = 1;
+       }else
+           this.page++;
+    }
+
+    public void previous() {
+        if (this.page == 1) {
+            this.page = this.getPageCount();
+        }else 
+            this.page--;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public int getPageCount() {
+        this.pageCount = (int) Math.ceil(this.getAdao().count() / (double) pageSize);
+        return pageCount;
+    }
+
+    public void setPageCount(int pageCount) {
+        this.pageCount = pageCount;
+    }
+
     public AracController() {
     }
 
     private Arac arac;
 
     public void updateForm(Arac arac) {
-        this.FirmaSec =new Long(arac.getFirmaid()); 
+        this.FirmaSec = new Long(arac.getFirmaid());
         this.arac = arac;//Guncellemek istedigimiz nesneyi araccontroller bean nin arac nesnesine atama islemini yaptik.
     }
 
@@ -59,7 +102,7 @@ public class AracController implements Serializable {
     }
 
     public List<Arac> getClist() {
-        this.clist = this.getAdao().read();
+        this.clist = this.getAdao().read(page, pageSize);
         return this.clist;
     }
 
@@ -105,7 +148,7 @@ public class AracController implements Serializable {
     }
 
     public List<Firma> getFirmaList() {
-        this.firmaList = this.getFirmaDAO().read();
+         this.firmaList = this.getFirmaDAO().read(page, pageSize);
         return firmaList;
     }
 

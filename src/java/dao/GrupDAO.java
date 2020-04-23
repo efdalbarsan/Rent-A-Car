@@ -10,13 +10,12 @@ import java.util.List;
 
 public class GrupDAO extends Dao {
 
-    @Override
-    public List read() {
+    public List read(int page, int pageSize) {
         List<Grup> clist = new ArrayList();
-
+        int start = (page - 1) * pageSize;
         try {
             Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery("select * from grup"); //executeQuery veritabanindan veri cekme islemini yapar. 
+            ResultSet rs = st.executeQuery("select * from grup order by grupid asc limit " + pageSize + " offset " + start); //executeQuery veritabanindan veri cekme islemini yapar. 
 
             while (rs.next()) {
                 Grup tmp;
@@ -32,6 +31,20 @@ public class GrupDAO extends Dao {
         return clist;
     }
     
+    public int count() {
+        int count = 0;
+
+        try {
+            PreparedStatement st = getConn().prepareStatement("select count(grupid) as arac_count from grup");
+            ResultSet rs = st.executeQuery();
+            rs.next();
+            count = rs.getInt("grup_count");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return count;
+    }
+
     public Grup find(int grupid) {
         Grup g = null;
 
@@ -43,8 +56,6 @@ public class GrupDAO extends Dao {
             g = new Grup();
             g.setGrupid(rs.getInt("grupid"));
             g.setGrupadi(rs.getString("grupadi"));
-
-
 
         } catch (SQLException ex) {
             System.out.println("ex.getMessage");

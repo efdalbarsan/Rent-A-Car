@@ -8,22 +8,21 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class HasarKaydiDAO extends Dao {
-    private AracDAO aracDAO;
-    
-    @Override
-    public List read() {
-        List<HasarKaydi> clist = new ArrayList();
 
+    private AracDAO aracDAO;
+
+    public List read(int page,int pageSize) {
+        List<HasarKaydi> clist = new ArrayList();
+        int start = (page - 1) * pageSize;
         try {
             Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery("select * from hasarkaydi"); //executeQuery veritabanindan veri cekme islemini yapar. 
+            ResultSet rs = st.executeQuery("select * from hasarkaydi order by hasarid asc limit " + pageSize + " offset " + start);
 
             while (rs.next()) {
                 HasarKaydi tmp;
                 tmp = new HasarKaydi(rs.getInt("hasarid"), rs.getInt("aracid"), rs.getString("boya"), rs.getString("cizik"), rs.getString("degisim"), rs.getString("aciklama"));
-                
+
                 tmp.setArac(this.getAracDAO().find(rs.getInt("aracid")));
                 clist.add(tmp);//Her yeni hasarKaydii listeme ekliyorum
 
@@ -33,6 +32,20 @@ public class HasarKaydiDAO extends Dao {
             System.out.println(ex.getMessage());
         }
         return clist;
+    }
+
+    public int count() {
+        int count = 0;
+
+        try {
+            PreparedStatement st = getConn().prepareStatement("select count(hasarid) as hasarkaydi_count from hasarkaydi");
+            ResultSet rs = st.executeQuery();
+            rs.next();
+            count = rs.getInt("hasarkaydi_count");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return count;
     }
 
     @Override
@@ -89,10 +102,10 @@ public class HasarKaydiDAO extends Dao {
     }
 
     public AracDAO getAracDAO() {
-        if(aracDAO == null){
+        if (aracDAO == null) {
             aracDAO = new AracDAO();
         }
         return aracDAO;
     }
-    
+
 }

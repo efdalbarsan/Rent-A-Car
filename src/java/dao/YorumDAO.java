@@ -9,16 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class YorumDAO extends Dao {
+
     private KullaniciDAO kullaniciDAO;
     private AracDAO aracDAO;
-    
-    @Override
-    public List read() {
-        List<Yorum> clist = new ArrayList();
 
+    public List read(int page, int pageSize) {
+        List<Yorum> clist = new ArrayList();
+        int start = (page - 1) * pageSize;
         try {
             Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery("select * from yorum"); //executeQuery veritabanindan veri cekme islemini yapar. 
+            ResultSet rs = st.executeQuery("select * from yorum order by yorumid asc limit " + pageSize + " offset " +start); //executeQuery veritabanindan veri cekme islemini yapar. 
 
             while (rs.next()) {
                 Yorum tmp;
@@ -34,6 +34,20 @@ public class YorumDAO extends Dao {
             System.out.println(ex.getMessage());
         }
         return clist;
+    }
+
+    public int count() {
+        int count = 0;
+
+        try {
+            PreparedStatement st = getConn().prepareStatement("select count(yorumid) as yorum_count from yorum");
+            ResultSet rs = st.executeQuery();
+            rs.next();
+            count = rs.getInt("yorum_count");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return count;
     }
 
     @Override
@@ -86,18 +100,17 @@ public class YorumDAO extends Dao {
     }
 
     public KullaniciDAO getKullaniciDAO() {
-        if(kullaniciDAO == null){
+        if (kullaniciDAO == null) {
             this.kullaniciDAO = new KullaniciDAO();
         }
         return kullaniciDAO;
     }
 
     public AracDAO getAracDAO() {
-        if(aracDAO == null){
+        if (aracDAO == null) {
             this.aracDAO = new AracDAO();
         }
         return aracDAO;
     }
-    
-    
+
 }

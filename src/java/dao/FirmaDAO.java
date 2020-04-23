@@ -8,15 +8,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FirmaDAO extends Dao{
+public class FirmaDAO extends Dao {
 
-    @Override
-    public List read() {
+    public List read(int page, int pageSize) {
         List<Firma> firmaList = new ArrayList<>();
 
+        int start = (page - 1) * pageSize;
         try {
             Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery("select * from firma"); //executeQuery veritabanindan veri cekme islemini yapar. 
+            ResultSet rs = st.executeQuery("select * from firma order by firmaid asc limit " + pageSize + " offset " + start); 
 
             while (rs.next()) {
                 Firma tmp;
@@ -28,6 +28,20 @@ public class FirmaDAO extends Dao{
             System.out.println(ex.getMessage());
         }
         return firmaList;
+    }
+
+    public int count() {
+        int count = 0;
+
+        try {
+            PreparedStatement st = getConn().prepareStatement("select count(firmaid) as firma_count from firma");
+            ResultSet rs = st.executeQuery();
+            rs.next();
+            count = rs.getInt("firma_count");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return count;
     }
 
     public Firma find(int firmaid) {

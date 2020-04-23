@@ -1,6 +1,5 @@
 package dao;
 
-
 import entity.Rezervasyon;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,23 +8,24 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RezervasyonDAO extends Dao{
+public class RezervasyonDAO extends Dao {
+
     private KullaniciDAO kullaniciDAO;
     private AracDAO aracDAO;
-    
-    @Override
-    public List read() {
+
+    public List read(int page, int pageSize) {
         List<Rezervasyon> clist = new ArrayList();
+        int start = (page - 1) * pageSize;
 
         try {
             Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery("select * from rezervasyon"); //executeQuery veritabanindan veri cekme islemini yapar. 
+            ResultSet rs = st.executeQuery("select * from rezervasyon order by rezervasyonid asc limit " + pageSize + " offset " + start); //executeQuery veritabanindan veri cekme islemini yapar. 
 
             while (rs.next()) {
                 Rezervasyon tmp;
                 tmp = new Rezervasyon(rs.getInt("rezervasyonid"), rs.getInt("aracid"), rs.getInt("kullaniciid"), rs.getString("aciklama"), rs.getDate("tarih"));
                 tmp.setTempDate(String.valueOf(tmp.getTarih()));
-                
+
                 tmp.setArac(this.getAracDAO().find(rs.getInt("aracid")));
                 tmp.setKullanici(this.getKullaniciDAO().find(rs.getInt("kullaniciid")));
                 clist.add(tmp);//Her yeni rezervasyoni listeme ekliyorum
@@ -36,6 +36,20 @@ public class RezervasyonDAO extends Dao{
             System.out.println(ex.getMessage());
         }
         return clist;
+    }
+
+    public int count() {
+        int count = 0;
+
+        try {
+            PreparedStatement st = getConn().prepareStatement("select count(rezervasyonid) as rezervasyon_count from rezervasyon");
+            ResultSet rs = st.executeQuery();
+            rs.next();
+            count = rs.getInt("rezervasyon_count");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return count;
     }
 
     @Override
@@ -91,18 +105,17 @@ public class RezervasyonDAO extends Dao{
     }
 
     public KullaniciDAO getKullaniciDAO() {
-        if(kullaniciDAO == null){
+        if (kullaniciDAO == null) {
             kullaniciDAO = new KullaniciDAO();
         }
         return kullaniciDAO;
     }
 
     public AracDAO getAracDAO() {
-        if(aracDAO == null){
+        if (aracDAO == null) {
             aracDAO = new AracDAO();
         }
         return aracDAO;
     }
-    
-    
+
 }

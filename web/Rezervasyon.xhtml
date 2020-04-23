@@ -44,6 +44,10 @@
             <div class="row" >
                 <div class="col-md-11">
                     <h:form id="rezervasyon-table" >
+                         <div class="btn-group">
+                             <h:commandButton action="#{rezervasyonController.previous()}" value="Previous" styleClass="btn btn-outline-dark"/>
+                            <h:commandButton action="#{rezervasyonController.next()}" value="Next" styleClass="btn btn-outline-dark"/>
+                        </div>
                         <h:dataTable value ="#{rezervasyonController.rezervasyonList}" var="rz" styleClass="table table-borderless table-striped">
                             <h:column>
                                 <f:facet name="header">Rezervasyon ID</f:facet>

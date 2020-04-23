@@ -44,6 +44,11 @@
             <div class="row" >
                 <div class="col-md-11">
                     <h:form id="Grup-table" >
+                        <pre>Page #{grupController.page} of #{grupController.pageCount}</pre>
+                        <div class="btn-group">
+                            <h:commandButton action="#{grupController.previous()}" value="Previous" styleClass="btn btn-outline-dark"/>
+                            <h:commandButton action="#{grupController.next()}" value="Next" styleClass="btn btn-outline-dark"/>
+                        </div>
                         <h:dataTable value ="#{grupController.grupList}" var="grup" styleClass="table table-borderless table-striped">
                             <h:column>
                                 <f:facet name="header">GRUP ID</f:facet>
