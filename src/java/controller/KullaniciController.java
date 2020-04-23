@@ -154,7 +154,7 @@ public class KullaniciController implements Serializable {
     }
 
     public List<Grup> getGrupList() {
-        this.grupList = this.getGrupDAO().read(page, pageSize);
+        this.grupList = this.getGrupDAO().read();
         return grupList;
     }
 
