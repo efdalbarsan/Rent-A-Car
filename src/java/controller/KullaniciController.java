@@ -102,6 +102,10 @@ public class KullaniciController implements Serializable {
         this.getKullaniciDAO().create(this.kullanici);
         clearForm();
     }
+      public void register() {
+        this.getKullaniciDAO().create(this.kullanici);
+        clearForm();
+    }
 
     public Kullanici getKullanici() {
         if (this.kullanici == null) {

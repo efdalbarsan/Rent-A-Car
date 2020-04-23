@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.registry.infomodel.User;
 
 public class KullaniciDAO extends Dao {
 
@@ -80,7 +81,7 @@ public class KullaniciDAO extends Dao {
             st.setString(1, kullanici.getEmail());
             st.setString(2, kullanici.getKullaniciadi());
             st.setString(3, kullanici.getSifre());
-            st.setInt(4, kullanici.getGrupid());
+            st.setInt(4, 3);
             st.setString(5, kullanici.getTelefon());
             st.setString(6, kullanici.getAdres());
 
@@ -125,6 +126,28 @@ public class KullaniciDAO extends Dao {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+
+    public Kullanici Login(String email, String parola) {
+        Kullanici tmp = null;
+        try {
+            PreparedStatement pst = this.getConn().prepareStatement("select * from kullanici where email=? and sifre=?");
+            pst.setString(1, email);
+            pst.setString(2, parola);
+
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+
+                tmp = new Kullanici(rs.getInt("kullaniciid"), rs.getString("email"), rs.getString("kullaniciadi"), rs.getString("sifre"), rs.getInt("grupid"), rs.getString("telefon"), rs.getString("adres"));
+                tmp.setGrup(this.getGrupDAO().find(rs.getInt("grupid")));
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return tmp;
     }
 
     public GrupDAO getGrupDAO() {
