@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:form id="rezervasyon-table" >       
+        <h:dataTable value ="#{rezervasyonController.rezervasyonList}" var="rz" styleClass="table table-borderless table-striped">
+            <h:column rendered="#{sessionScope.valid_user.grup.grupadi == 'Admin'}">
+                <f:facet name="header">Rezervasyon ID</f:facet>
+                <h:commandLink action="#{rezervasyonController.updateForm(rz)}" value ="#{rz.rezervasyonid}">
+                    <f:ajax execute="@this" render="rezervasyon-form"/>
+                </h:commandLink>
+            </h:column>
+            <h:column>
+                <f:facet name="header">ARAC PLAKASI</f:facet>
+                    #{rz.arac.plaka}
+            </h:column>
+            <h:column>
+                <f:facet name="header">KULLANICI ADI</f:facet>
+                    #{rz.kullanici.kullaniciadi}
+            </h:column>
+            <h:column rendered="#{sessionScope.valid_user.grup.grupadi == 'Admin'}">
+                <f:facet name="header">KULLANICI TELEFONU</f:facet>
+                    #{rz.kullanici.telefon}
+            </h:column>
+            <h:column>
+                <f:facet name="header">ACIKLAMA</f:facet>
+                    #{rz.aciklama}
+            </h:column>
+            <h:column>
+                <f:facet name="header">TARIH</f:facet>
+                    #{rz.tarih}
+            </h:column>
+            <h:column rendered="#{sessionScope.valid_user.grup.grupadi == 'Admin'}">
+                <f:facet name="header">DELETE</f:facet>
+                <h:commandButton onclick="$('#myModal').modal('show')" styleClass="btn btn-sm btn-danger" action="#{rezervasyonController.deleteConfirm(rz)}" value ="Delete">
+                    <f:ajax execute="@this" render="delete-modal"/>
+                </h:commandButton>
+            </h:column>
+        </h:dataTable>
+    </h:form>
+</ui:composition>

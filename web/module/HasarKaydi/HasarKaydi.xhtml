@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/template/template.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+
+        <div class="row">
+            <div class="col-md-11">
+                <ui:include src="/module/HasarKaydi/pagination.xhtml"/>
+                <ui:include src="/module/HasarKaydi/table.xhtml"/>
+            </div>
+            <div class="col-md-1">
+                <ui:include src="/module/HasarKaydi/form.xhtml"/>
+            </div>
+        </div>
+        <div class="modal" id="myModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <h:panelGroup layout="block" class="modal-content" id="delete-modal">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Delete Confirmation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Bu kaydı silmek istediğinizden eminmisiniz ?<br />
+
+                            <b>Araç Boyası = </b>#{hasarKaydiController.hasarKaydi.boya} <br />
+                            <b>Araç Çiziği = </b>#{hasarKaydiController.hasarKaydi.cizik} <br />
+                            <b>Araç Değişimi = </b>#{hasarKaydiController.hasarKaydi.degisim} <br />               
+
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <h:form>
+                            <h:commandButton onclick="$('.modal').modal('.hide')" action="#{hasarKaydiController.delete()}" value="Confirm" styleClass="btn btn-danger">
+                                <f:ajax execute="@this" render="hasarKaydi-table hasarKaydi-form"/>
+                            </h:commandButton>
+                            <h:commandButton styleClass="btn btn-secondary" action="#{hasarKaydiController.clearForm()}" value="Close" />
+                        </h:form>
+                    </div>
+                </h:panelGroup>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+        </script> <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script> 
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    </ui:define>
+</ui:composition>

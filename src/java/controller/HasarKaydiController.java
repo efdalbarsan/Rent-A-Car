@@ -18,22 +18,24 @@ public class HasarKaydiController implements Serializable {
     private Long aracSec;
     private AracDAO aracDAO;
     private List<Arac> aracList;
-     private int page = 1;
+    private int page = 1;
     private int pageSize = 5;
     private int pageCount;
 
     public void next() {
-       if(this.page == this.getPageCount()){
-        this.page = 1;
-       }else
-           this.page++;
+        if (this.page == this.getPageCount()) {
+            this.page = 1;
+        } else {
+            this.page++;
+        }
     }
 
     public void previous() {
         if (this.page == 1) {
             this.page = this.getPageCount();
-        }else 
+        } else {
             this.page--;
+        }
     }
 
     public int getPage() {
@@ -66,7 +68,7 @@ public class HasarKaydiController implements Serializable {
     private HasarKaydi hasarKaydi;
 
     public void updateForm(HasarKaydi hasarKaydi) {
-        this.aracSec =new Long(hasarKaydi.getAracid());
+        this.aracSec = new Long(hasarKaydi.getAracid());
         this.hasarKaydi = hasarKaydi;
     }
 

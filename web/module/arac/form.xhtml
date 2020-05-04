@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:form id="arac-form" rendered="#{sessionScope.valid_user.grup.grupadi == 'Admin'}">
+        <div class="form-inline">
+            <h:inputHidden value ="#{aracController.arac.aracid}"/>
+            <label for="inputPlaka">Plakası</label>
+            <h:inputText styleClass="form-control" value ="#{aracController.arac.plaka}"/>
+        </div>
+        <div class="form-inline">
+            <label for="inputMarka">Markası</label>
+            <h:inputText styleClass="form-control" value ="#{aracController.arac.marka}"/>
+        </div>
+
+        <div class="form-inline">
+            <label for="inputModel">Modeli </label>
+            <h:inputText styleClass="form-control" value ="#{aracController.arac.model}"/>
+        </div>
+        <div class="form-inline">
+            <label for="inputMotoru">Motoru </label>
+            <h:inputText styleClass="form-control" value ="#{aracController.arac.motor}"/>
+        </div>
+        <div class="form-inline">
+            <label for="inputYili">Yılı </label>
+            <h:inputText styleClass="form-control" value ="#{aracController.arac.yil}"/>
+        </div>
+        <div class="form-inline">
+            <label for="inputKilometre">Kilometresi </label>
+            <h:inputText styleClass="form-control" value ="#{aracController.arac.kilometre}"/>
+        </div>
+        <div class="form-inline">
+            <label for="inputYakit">Yakıtı </label>
+            <h:inputText styleClass="form-control" value ="#{aracController.arac.yakit}"/>
+        </div>
+        <div class="form-inline">
+            <label for="inputVites">Vites Tipi </label>
+            <h:inputText styleClass="form-control" value ="#{aracController.arac.vites}"/>
+        </div>
+        <div class="form-inline">
+            <label for="inputFiyat">Fiyat </label>
+            <h:inputText styleClass="form-control" value ="#{aracController.arac.fiyat}"/>
+        </div>
+        <div class="form-inline">
+            <label for="inputFirmaId">Firma Adı</label>
+            <h:selectOneMenu styleClass="custom-select" id ="FirmaSec" value="#{aracController.firmaSec}">
+                <f:selectItems value="#{aracController.firmaList}" var="firma" itemValue="#{firma.firmaid}" itemLabel="#{firma.adi}"/>
+            </h:selectOneMenu> 
+        </div>
+        <div class="form-group">
+            <div class="btn-group">
+                <h:commandButton rendered="#{aracController.arac.plaka == null}" styleClass="btn btn-primary" value="Create" action="#{aracController.create}">
+                    <f:ajax execute="arac-form" render="arac-form arac-table"/> 
+                </h:commandButton>
+                <h:commandButton rendered="#{aracController.arac.plaka != null}" styleClass="btn btn-dark" value="Update" action="#{aracController.modify}">
+                    <f:ajax execute="arac-form" render="arac-form arac-table"/>
+                </h:commandButton>
+                <h:commandButton rendered="#{aracController.arac.plaka != null}" styleClass="btn btn-danger" value="Clear Form" action="#{aracController.clearForm}">
+                    <f:ajax execute="@this" render="arac-form"/> 
+                </h:commandButton>
+            </div>
+        </div>
+    </h:form>
+</ui:composition>

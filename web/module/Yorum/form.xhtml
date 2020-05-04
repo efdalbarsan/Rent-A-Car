@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:form id="Yorum-form" rendered="#{sessionScope.valid_user.grup.grupadi == 'Admin'}">
+        <div class="form-inline">
+            <h:inputHidden value="#{yorumController.yorum.yorumid}"/>
+            <label for="inputFirmaId">KULLANICI ADI</label>
+            <h:selectOneMenu styleClass="custom-select" id ="KullaniciSec" value="#{yorumController.kullaniciSec}">
+                <f:selectItems value="#{yorumController.kullaniciList}" var="kullanici" itemValue="#{kullanici.kullaniciid}" itemLabel="#{kullanici.kullaniciadi}"/>
+            </h:selectOneMenu> 
+        </div>
+        <div class="form-inline">
+            <label for="inputAracId">ARAC PLAKA</label>
+            <h:selectOneMenu styleClass="custom-select" id ="aracSec" value="#{yorumController.aracSec}">
+                <f:selectItems value="#{yorumController.aracList}" var="arac" itemValue="#{arac.aracid}" itemLabel="#{arac.plaka}"/>
+            </h:selectOneMenu> 
+        </div>
+        <div class="form-inline">
+            <label for="inputYorum">YORUM</label>
+            <h:inputText styleClass="form-control" value="#{yorumController.yorum.yorum}"/>
+        </div>    
+        <div class="form-group">
+            <div class="btn-group">
+                <h:commandButton rendered="#{yorumController.yorum.yorum == null}" styleClass="btn btn-primary" value="Create" action="#{yorumController.create}">
+                    <f:ajax execute="Yorum-form" render="Yorum-form Yorum-table"/> 
+                </h:commandButton>
+                <h:commandButton rendered="#{yorumController.yorum.yorum != null}" styleClass="btn btn-dark" value="Update" action="#{yorumController.modify}">
+                    <f:ajax execute="Yorum-form" render="Yorum-form Yorum-table"/>
+                </h:commandButton>
+                <h:commandButton rendered="#{yorumController.yorum.yorum != null}" styleClass="btn btn-danger" value="Clear Form" action="#{yorumController.clearForm}">
+                    <f:ajax execute="@this" render="Yorum-form"/> 
+                </h:commandButton>
+            </div>
+        </div>
+    </h:form>
+</ui:composition>

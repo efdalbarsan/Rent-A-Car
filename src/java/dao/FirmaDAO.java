@@ -114,4 +114,23 @@ public class FirmaDAO extends Dao {
             System.out.println(ex.getMessage());
         }
     }
+        public List read() {
+        List<Firma> firmaList = new ArrayList<>();
+
+        
+        try {
+            Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery("select * from firma"); 
+
+            while (rs.next()) {
+                Firma tmp;
+                tmp = new Firma(rs.getInt("firmaid"), rs.getString("adi"), rs.getString("telefon"), rs.getString("email"), rs.getString("adres"));
+                firmaList.add(tmp);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return firmaList;
+    }
 }

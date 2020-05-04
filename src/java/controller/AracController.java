@@ -148,7 +148,7 @@ public class AracController implements Serializable {
     }
 
     public List<Firma> getFirmaList() {
-         this.firmaList = this.getFirmaDAO().read(page, pageSize);
+        this.firmaList = this.getFirmaDAO().read();
         return firmaList;
     }
 

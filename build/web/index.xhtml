@@ -55,7 +55,7 @@
                         </div>
                         <div class="form-group">
                             <div class="btn-group">
-                                <h:commandButton rendered="#{kullaniciController.kullanici.email == null}" styleClass="btn btn-primary" value="Create" action="#{kullaniciController.register()}">
+                                <h:commandButton rendered="#{kullaniciController.kullanici.email == null}" styleClass="btn btn-primary" value="KAYIT OL" action="#{kullaniciController.register()}">
                                     <f:ajax execute="kullanici-form" render="kullanici-form"/> 
                                 </h:commandButton>
                                 <h:commandButton rendered="#{kullaniciController.kullanici.email != null}" styleClass="btn btn-dark" value="Update" action="#{kullaniciController.modify}">

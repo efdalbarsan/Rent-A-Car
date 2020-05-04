@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:form id="kullanici-table">
+        <pre>Page #{kullaniciController.page} of #{kullaniciController.pageCount}</pre>
+        <h:dataTable styleClass="table table-striped table-hover" value="#{kullaniciController.kullaniciList}" var="user">
+            <h:column>
+                <f:facet name="header">ID</f:facet>
+                <h:commandLink action="#{kullaniciController.updateForm(user)}" value="#{user.kullaniciid}">
+                    <f:ajax execute="@this" render="kullanici-form" /> 
+                </h:commandLink> 
+            </h:column>
+            <h:column>
+                <f:facet name="header">YETKISI</f:facet>
+                    #{user.grup.grupadi}
+            </h:column>
+            <h:column>
+                <f:facet name="header">E-MAIL</f:facet>
+                    #{user.email}
+            </h:column>
+            <h:column>
+                <f:facet name="header">KULLANICI ADI</f:facet>
+                    #{user.kullaniciadi}
+            </h:column>
+            <h:column>
+                <f:facet name="header">SIFRE</f:facet>
+                    #{user.sifre}
+            </h:column>
+            <h:column>
+                <f:facet name="header">TELEFON</f:facet>
+                    #{user.telefon}
+            </h:column>
+            <h:column>
+                <f:facet name="header">ADRES</f:facet>
+                    #{user.adres}
+            </h:column>
+            <h:column>
+                <f:facet name="header">DELETE</f:facet>
+                <h:commandButton onclick="$('#myModal').modal('show')" styleClass="btn btn-sm btn-danger" action="#{kullaniciController.deleteConfirm(user)}" value ="Delete">
+                    <f:ajax execute="@this" render="delete-modal"/>
+                </h:commandButton>
+            </h:column>
+        </h:dataTable>
+    </h:form>
+</ui:composition>

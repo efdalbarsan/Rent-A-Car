@@ -144,4 +144,27 @@ public class AracDAO extends Dao {
         }
         return firmaDAO;
     }
+
+    public List read() {
+        List<Arac> clist = new ArrayList();
+
+        
+        try {
+            Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery("select * from arac"); //executeQuery veritabanindan veri cekme islemini yapar. 
+
+            while (rs.next()) {
+                Arac tmp;
+                tmp = new Arac(rs.getInt("aracid"), rs.getString("plaka"), rs.getString("marka"), rs.getString("model"), rs.getDouble("motor"), rs.getInt("yil"), rs.getInt("kilometre"), rs.getString("yakit"), rs.getString("vites"), rs.getInt("fiyat"), rs.getInt("firmaid"));
+
+                tmp.setFirma(this.getFirmaDAO().find(rs.getInt("firmaid")));
+                clist.add(tmp);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return clist;
+    }
 }

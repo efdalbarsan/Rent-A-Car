@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:form id="firma-table">
+        <h:dataTable styleClass="table table-striped table-hover" value="#{firmaController.clist}" var="firm">
+            <h:column rendered="#{sessionScope.valid_user.grup.grupadi == 'Admin'}">
+                <f:facet name="header">ID</f:facet>
+                <h:commandLink action="#{firmaController.updateForm(firm)}" value="#{firm.firmaid}">
+                    <f:ajax execute="@this" render="firma-form" /> 
+                </h:commandLink> 
+            </h:column>
+            <h:column>
+                <f:facet name="header">İSİM</f:facet>
+                    #{firm.adi}
+            </h:column>
+            <h:column>
+                <f:facet name="header">TELEFON BİLGİSİ</f:facet>
+                    #{firm.telefon}
+            </h:column>
+            <h:column>
+                <f:facet name="header">E MAİL</f:facet>
+                    #{firm.email}
+            </h:column>
+            <h:column>
+                <f:facet name="header">ADRES</f:facet>
+                    #{firm.adres}
+            </h:column>
+            <h:column rendered="#{sessionScope.valid_user.grup.grupadi == 'Admin'}">
+                <f:facet name="header">DELETE</f:facet>
+                <h:commandButton onclick="$('#myModal').modal('show')" styleClass="btn btn-sm btn-danger" action="#{firmaController.deleteConfirm(firm)}" value ="Delete">
+                    <f:ajax execute="@this" render="delete-modal"/>
+                </h:commandButton>
+            </h:column>
+        </h:dataTable>
+    </h:form>
+</ui:composition>
