@@ -7,7 +7,7 @@
 
     <h:form id="Yorum-table" >
         <h:dataTable value ="#{yorumController.yorumList}" var="yor" styleClass="table table-borderless table-striped">
-            <h:column rendered="#{sessionScope.valid_user.grup.grupadi == 'Admin'}">
+            <h:column rendered="#{sessionScope.valid_user.grup.grupadi == 'Musteri'}">
                 <f:facet name="header">YORUM ID</f:facet>
                 <h:commandLink action="#{yorumController.updateForm(yor)}" value ="#{yor.yorumid}">
                     <f:ajax execute="@this" render="Yorum-form"/>
@@ -33,7 +33,7 @@
                 <f:facet name="header">YORUM</f:facet>
                     #{yor.yorum}
             </h:column>
-            <h:column rendered="#{sessionScope.valid_user.grup.grupadi == 'Admin'}">
+            <h:column rendered="#{sessionScope.valid_user.grup.grupadi == 'Musteri'}">
                 <f:facet name="header">DELETE</f:facet>
                 <h:commandButton onclick="$('#myModal').modal('show')" styleClass="btn btn-sm btn-danger" action="#{yorumController.deleteConfirm(yor)}" value ="Delete">
                     <f:ajax execute="@this" render="delete-modal"/>

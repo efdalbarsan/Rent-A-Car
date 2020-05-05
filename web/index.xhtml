@@ -9,21 +9,25 @@
         <h:outputStylesheet library ="css" name="bootstrap.css" />   
     </h:head>
     <h:body>
-        
+
         <div class="container">
             <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-            <a class="navbar-brand">Rent A Car</a>
-            <h:form class="form-inline" >
-                <h:inputText class="form-control mr-sm-2" a:placeholder="Email" value="#{loginController.kullanici.email}" />
-                <h:inputSecret class="form-control mr-sm-2" a:placeholder="Parola" value="#{loginController.kullanici.sifre}"/>
-                <h:commandButton class="btn btn-outline-success my-2 my-sm-0" value="Giriş Yap"  action="#{loginController.login()}"></h:commandButton>
-            </h:form>
-            
-        </nav>
+                <a class="navbar-brand">Rent A Car</a>
+                <h:form class="form-inline" >
+                    <h:inputText class="form-control mr-sm-2" a:placeholder="Email" value="#{loginController.kullanici.email}" />
+                    <h:inputSecret class="form-control mr-sm-2" a:placeholder="Parola" value="#{loginController.kullanici.sifre}"/>
+                    <h:commandButton class="btn btn-outline-success my-2 my-sm-0" value="Giriş Yap"  action="#{loginController.login()}"></h:commandButton>
+                </h:form>
+
+            </nav>
             <div class="row">
                 <div class="col-md-6">
                     <h1>
-                        Rent A Car Dünyasına hoşgeldiniz!
+                        <p>
+                            <font size="6" face="tahoma" color="maroon">
+                                Rent A Car Dunyasina Hosgeldiniz
+                            </font>
+                        </p>
                     </h1>
                 </div>
                 <div class="col-md-6">

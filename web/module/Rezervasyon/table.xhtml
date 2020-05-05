@@ -6,7 +6,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:form id="rezervasyon-table" >       
         <h:dataTable value ="#{rezervasyonController.rezervasyonList}" var="rz" styleClass="table table-borderless table-striped">
-            <h:column rendered="#{sessionScope.valid_user.grup.grupadi == 'Admin'}">
+            <h:column rendered="#{sessionScope.valid_user.grup.grupadi == 'Musteri'}">
                 <f:facet name="header">Rezervasyon ID</f:facet>
                 <h:commandLink action="#{rezervasyonController.updateForm(rz)}" value ="#{rz.rezervasyonid}">
                     <f:ajax execute="@this" render="rezervasyon-form"/>
@@ -32,7 +32,7 @@
                 <f:facet name="header">TARIH</f:facet>
                     #{rz.tarih}
             </h:column>
-            <h:column rendered="#{sessionScope.valid_user.grup.grupadi == 'Admin'}">
+            <h:column rendered="#{sessionScope.valid_user.grup.grupadi == 'Musteri'}">
                 <f:facet name="header">DELETE</f:facet>
                 <h:commandButton onclick="$('#myModal').modal('show')" styleClass="btn btn-sm btn-danger" action="#{rezervasyonController.deleteConfirm(rz)}" value ="Delete">
                     <f:ajax execute="@this" render="delete-modal"/>

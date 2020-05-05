@@ -95,7 +95,7 @@ public class FirmaController implements Serializable {
     }
 
     public List<Firma> getClist() {
-        this.clist = this.getFirmaDAO().read(page, pageSize);
+        this.clist = this.getFirmaDAO().read();
         return this.clist;
     }
 

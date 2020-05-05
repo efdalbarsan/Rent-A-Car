@@ -122,7 +122,7 @@ public class YorumController implements Serializable {
     }
 
     public List<Yorum> getYorumList() {
-        this.yorumList = this.getYorumDAO().read(page, pageSize);
+        this.yorumList = this.getYorumDAO().read();
         return yorumList;
     }
 
@@ -172,7 +172,7 @@ public class YorumController implements Serializable {
     }
 
     public List<Arac> getAracList() {
-        this.aracList = this.getAracDAO().read(page, pageSize);
+        this.aracList = this.getAracDAO().read();
         return aracList;
     }
 
@@ -181,7 +181,7 @@ public class YorumController implements Serializable {
     }
 
     public List<Kullanici> getKullaniciList() {
-        this.kullaniciList = this.getKullaniciDAO().read(page, pageSize);
+        this.kullaniciList = this.getKullaniciDAO().read();
         return kullaniciList;
     }
 

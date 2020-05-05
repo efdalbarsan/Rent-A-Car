@@ -3,12 +3,23 @@ package util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 
 public class DBConnection {
 
-    public Connection connect() {
+    private DBConnection(){
+        
+    }
+    private static DBConnection db;
+
+    public static DBConnection getDb() {
+        if(db ==  null){
+            db = new DBConnection();
+        }
+        return db;
+    }
+    
+    public Connection getConnection() {
         final String url = "jdbc:postgresql://localhost/rentacar";
         final String user = "postgres";
         final String password = "3344";

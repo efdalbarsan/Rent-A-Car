@@ -6,7 +6,6 @@
 package dao;
 
 import java.sql.Connection;
-import java.util.List;
 import util.DBConnection;
 
 /**
@@ -24,14 +23,14 @@ public abstract class Dao {
 
     public DBConnection getDb() {
         if (db == null) {
-            db = new DBConnection();
+            db =  DBConnection.getDb();
         }
         return db;
     }
 
     public Connection getConn() {
         if (conn == null) {
-            conn = getDb().connect();
+            conn = getDb().getConnection();
         }
         return conn;
     }   

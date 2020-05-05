@@ -119,7 +119,7 @@ public class KullaniciController implements Serializable {
     }
 
     public List<Kullanici> getKullaniciList() {
-        this.kullaniciList = this.getKullaniciDAO().read(page, pageSize);
+        this.kullaniciList = this.getKullaniciDAO().read();
         return kullaniciList;
     }
 

@@ -12,7 +12,7 @@ public class HasarKaydiDAO extends Dao {
 
     private AracDAO aracDAO;
 
-    public List read(int page,int pageSize) {
+    public List read(int page, int pageSize) {
         List<HasarKaydi> clist = new ArrayList();
         int start = (page - 1) * pageSize;
         try {
@@ -108,4 +108,25 @@ public class HasarKaydiDAO extends Dao {
         return aracDAO;
     }
 
+    public List read() {
+        List<HasarKaydi> clist = new ArrayList();
+
+        try {
+            Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery("select * from hasarkaydi");
+
+            while (rs.next()) {
+                HasarKaydi tmp;
+                tmp = new HasarKaydi(rs.getInt("hasarid"), rs.getInt("aracid"), rs.getString("boya"), rs.getString("cizik"), rs.getString("degisim"), rs.getString("aciklama"));
+
+                tmp.setArac(this.getAracDAO().find(rs.getInt("aracid")));
+                clist.add(tmp);//Her yeni hasarKaydii listeme ekliyorum
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return clist;
+    }
 }

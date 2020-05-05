@@ -4,7 +4,7 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:form id="rezervasyon-form" rendered="#{sessionScope.valid_user.grup.grupadi == 'Admin'}">
+    <h:form id="rezervasyon-form" rendered="#{sessionScope.valid_user.grup.grupadi == 'Musteri'}">
         <div class="form-inline">
             <h:inputHidden value="#{rezervasyonController.rezervasyon.rezervasyonid}"/>
             <label for="inputAracId">ARAC PLAKA</label>

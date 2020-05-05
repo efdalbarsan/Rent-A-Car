@@ -118,4 +118,27 @@ public class RezervasyonDAO extends Dao {
         return aracDAO;
     }
 
+    public List read() {
+        List<Rezervasyon> clist = new ArrayList();
+
+        try {
+            Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery("select * from rezervasyon"); //executeQuery veritabanindan veri cekme islemini yapar. 
+
+            while (rs.next()) {
+                Rezervasyon tmp;
+                tmp = new Rezervasyon(rs.getInt("rezervasyonid"), rs.getInt("aracid"), rs.getInt("kullaniciid"), rs.getString("aciklama"), rs.getDate("tarih"));
+                tmp.setTempDate(String.valueOf(tmp.getTarih()));
+
+                tmp.setArac(this.getAracDAO().find(rs.getInt("aracid")));
+                tmp.setKullanici(this.getKullaniciDAO().find(rs.getInt("kullaniciid")));
+                clist.add(tmp);//Her yeni rezervasyoni listeme ekliyorum
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return clist;
+    }
 }

@@ -124,7 +124,7 @@ public class RezervasyonController implements Serializable {
     }
 
     public List<Rezervasyon> getRezervasyonList() {
-        this.rezervasyonList = this.getRezervasyonDAO().read(page, pageSize);
+        this.rezervasyonList = this.getRezervasyonDAO().read();
         return rezervasyonList;
     }
 
@@ -174,7 +174,7 @@ public class RezervasyonController implements Serializable {
     }
 
     public List<Arac> getAracList() {
-        this.aracList = this.getAracDAO().read(page, pageSize);
+        this.aracList = this.getAracDAO().read();
         return aracList;
     }
 
@@ -183,7 +183,7 @@ public class RezervasyonController implements Serializable {
     }
 
     public List<Kullanici> getKullaniciList() {
-        this.kullaniciList = this.getKullaniciDAO().read(page, pageSize);
+        this.kullaniciList = this.getKullaniciDAO().read();
         return kullaniciList;
     }
 

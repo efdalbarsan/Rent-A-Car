@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.registry.infomodel.User;
 
 public class KullaniciDAO extends Dao {
 
@@ -148,6 +147,27 @@ public class KullaniciDAO extends Dao {
             System.out.println(ex.getMessage());
         }
         return tmp;
+    }
+
+    public List read() {
+        List<Kullanici> clist = new ArrayList();
+        try {
+            Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery("select * from kullanici"); //executeQuery veritabanindan veri cekme islemini yapar. 
+
+            while (rs.next()) {
+                Kullanici tmp;
+                tmp = new Kullanici(rs.getInt("kullaniciid"), rs.getString("email"), rs.getString("kullaniciadi"), rs.getString("sifre"), rs.getInt("grupid"), rs.getString("telefon"), rs.getString("adres"));
+
+                tmp.setGrup(this.getGrupDAO().find(rs.getInt("grupid")));
+                clist.add(tmp);//Her yeni kullanicii listeme ekliyorum
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return clist;
     }
 
     public GrupDAO getGrupDAO() {

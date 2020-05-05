@@ -30,12 +30,12 @@
                                 <h:commandLink styleClass="nav-link" action="#{navigationBean.page('Yorum')}" value="Yorum"/>
                             </li>
                             <li class="nav-item">
-                                <h:commandLink styleClass="nav-link" action="#{navigationBean.page('Grup')}" value="Grup"/>
+                                <h:commandLink rendered="#{sessionScope.valid_user.grup.grupadi == 'Admin'}" styleClass="nav-link" action="#{navigationBean.page('Grup')}" value="Grup"/>
                             </li>
                             <li class="nav-item">
-                                <h:commandLink styleClass="nav-link" action="#{navigationBean.page('Kullanici')}" value="Kullanici"/>
+                                <h:commandLink  rendered="#{sessionScope.valid_user.grup.grupadi == 'Admin'}" styleClass="nav-link" action="#{navigationBean.page('Kullanici')}" value="Kullanici"/>
                             </li>
-                            <h:commandButton class="btn btn-outline-success my-2 my-sm-0" value="Çıkış Yap"  action="#{loginController.logout()}"></h:commandButton>
+                            <h:commandButton styleClass="btn btn-group-sm btn-outline-dark"  value="Çıkış Yap"  action="#{loginController.logout()}"></h:commandButton>                         
                         </ul>
                     </h:form>
                 </div>

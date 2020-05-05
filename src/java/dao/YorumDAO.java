@@ -18,7 +18,7 @@ public class YorumDAO extends Dao {
         int start = (page - 1) * pageSize;
         try {
             Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery("select * from yorum order by yorumid asc limit " + pageSize + " offset " +start); //executeQuery veritabanindan veri cekme islemini yapar. 
+            ResultSet rs = st.executeQuery("select * from yorum order by yorumid asc limit " + pageSize + " offset " + start); //executeQuery veritabanindan veri cekme islemini yapar. 
 
             while (rs.next()) {
                 Yorum tmp;
@@ -113,4 +113,26 @@ public class YorumDAO extends Dao {
         return aracDAO;
     }
 
+    public List read() {
+        List<Yorum> clist = new ArrayList();
+        
+        try {
+            Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery("select * from yorum"); //executeQuery veritabanindan veri cekme islemini yapar. 
+
+            while (rs.next()) {
+                Yorum tmp;
+                tmp = new Yorum(rs.getInt("yorumid"), rs.getInt("kullaniciid"), rs.getInt("aracid"), rs.getString("yorum"));
+
+                tmp.setKullanici(this.getKullaniciDAO().find(rs.getInt("kullaniciid")));
+                tmp.setArac(this.getAracDAO().find(rs.getInt("aracid")));
+                clist.add(tmp);//Her yeni yorumi listeme ekliyorum
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return clist;
+    }
 }
