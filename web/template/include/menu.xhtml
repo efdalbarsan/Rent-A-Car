@@ -35,6 +35,9 @@
                             <li class="nav-item">
                                 <h:commandLink  rendered="#{sessionScope.valid_user.grup.grupadi == 'Admin'}" styleClass="nav-link" action="#{navigationBean.page('Kullanici')}" value="Kullanici"/>
                             </li>
+                            <li class="nav-item">
+                                <h:commandLink styleClass="nav-link" action="#{navigationBean.page('Document')}" value="Documents"/>
+                            </li>
                             <h:commandButton styleClass="btn btn-group-sm btn-outline-dark"  value="Çıkış Yap"  action="#{loginController.logout()}"></h:commandButton>                         
                         </ul>
                     </h:form>

@@ -113,6 +113,7 @@ public class AracController implements Serializable {
     public AracDAO getAdao() {
         if (this.adao == null) {
             this.adao = new AracDAO();
+            System.out.println("1");
         }
         return adao;
     }
